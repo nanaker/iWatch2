@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="330dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/lightGrey"
+        android:layout_margin="16dp">
+
+        <com.github.ivbaranov.mfb.MaterialFavoriteButton
+            android:id="@+id/roomFavori"
+            app:mfb_color="@color/bordo"
+            app:mfb_type="heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/roomAddress"
+            android:layout_marginBottom="24dp"
+            android:layout_toEndOf="@+id/roomName"
+            android:onClick="addFav_Cinema" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/pictureCinema"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cinema_room" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nameCinema"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cinema Village "
+                    android:theme="@style/title" />
+
+                <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                    android:id="@+id/cinemaFavori"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="-16dp"
+                    app:mfb_type="heart"
+                    app:mfb_color="@color/bordo"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Adress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="22 E 12th St, New York, NY 10003, États-Unis"
+                android:theme="@style/directorName" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

@@ -1,0 +1,147 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/bordo</item>
+        <item name="actionMenuTextColor">#ffffff</item>
+        <item name="android:actionMenuTextColor">#ffffff</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+    <!-- Button  under Tabs -->
+    <style name="Button">
+        <item name="android:colorButtonNormal">@color/bordo</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:width">150dp</item>
+        <item name="android:height">50dp</item>
+    </style>
+
+
+    <style name="ButtonFocus">
+        <item name="android:colorButtonNormal">@color/black</item>
+        <item name="android:textColor">@color/bordo</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:width">150dp</item>
+        <item name="android:height">50dp</item>
+    </style>
+
+
+    <!-- Button Details -->
+    <style name="ButtonDetails">
+        <item name="android:colorButtonNormal">@color/bordo</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:width">70dp</item>
+        <item name="android:height">30dp</item>
+    </style>
+
+    <!-- Button  under Fun Tabs -->
+    <style name="ButtonFun">
+        <item name="android:colorButtonNormal">@color/bordo</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:width">80dp</item>
+        <item name="android:height">50dp</item>
+    </style>
+
+    <!-- Button Rate -->
+    <style name="ButtonRate">
+        <item name="android:colorButtonNormal">@color/bordo</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:width">64dp</item>
+        <item name="android:height">32dp</item>
+        <item name="android:textSize">4pt</item>
+    </style>
+
+
+    <!-- Card handling the information  -->
+    <style name="card">
+        <item name="android:colorBackground">@color/lightGrey</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+    </style>
+
+
+    <!-- title card  -->
+    <style name="title">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">8pt</item>
+
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <!-- Detail card  -->
+    <style name="details">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">6pt</item>
+
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+
+    <!--   -->
+    <style name="director">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">6pt</item>
+
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+
+    </style>
+
+    <style name="directorName">
+        <item name="android:textColor">#B3ffffff</item>
+        <item name="android:textSize">6pt</item>
+
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">16dp</item>
+
+    </style>
+
+    <style name="grade">
+        <item name="android:textColor">#B3ffffff</item>
+        <item name="android:textSize">6pt</item>
+
+    </style>
+
+
+    <style name="actorName">
+        <item name="android:textColor">#B3ffffff</item>
+        <item name="android:textSize">6pt</item>
+        <item name="android:paddingTop">8dp</item>
+
+    </style>
+
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/yellow</item>
+        <item name="colorControlActivated">@color/lightGrey</item>
+    </style>
+
+</resources>

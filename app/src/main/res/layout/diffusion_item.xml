@@ -1,0 +1,39 @@
+<HorizontalScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@color/black">
+
+<LinearLayout
+    android:layout_width="92dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:paddingRight="16dp">
+
+
+        <LinearLayout
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/btnDetailActor">
+
+                <ImageView
+                    android:id="@+id/DiffusionImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY"
+                    android:background="#AAA"/>
+
+                <TextView
+                    android:id="@+id/DiffusionName"
+                    android:theme="@style/actorName"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tom Hardy" />
+        </LinearLayout>
+
+
+</LinearLayout>
+</HorizontalScrollView>

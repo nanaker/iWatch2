@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/roomItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:padding="8dp">
+
+
+        <ImageView
+            android:id="@+id/roomAvatar"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:scaleType="fitXY"
+            android:background="#AAA" />
+
+        <TextView
+
+            android:id="@+id/roomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="8pt"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/roomAvatar"
+            android:layout_alignTop="@+id/roomAvatar"
+            android:text="Apollo Theater" />
+
+        <TextView
+            android:id="@+id/roomAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#B3ffffff"
+            android:layout_alignLeft="@+id/roomName"
+            android:layout_below="@+id/roomName"
+            android:text="253 W 125th St, New York, NY 10027, États-Unis" />
+
+
+</RelativeLayout>

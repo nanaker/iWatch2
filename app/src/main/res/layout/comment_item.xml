@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:padding="16dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/tom_hardy" />
+
+        <TextView
+
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="8pt"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/userAvatar"
+            android:layout_alignTop="@+id/userAvatar"
+            android:text="Apollo Theater" />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#B3ffffff"
+            android:layout_alignLeft="@+id/userName"
+            android:layout_below="@+id/userName"
+            android:text="253 W 125th St, New York, NY 10027, États-Unis" />
+
+    </RelativeLayout>
+</LinearLayout>

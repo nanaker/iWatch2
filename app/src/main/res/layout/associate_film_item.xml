@@ -1,0 +1,45 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="24dp">
+
+        <LinearLayout
+            android:id="@+id/btnDetailassociatefilm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp">
+
+            <LinearLayout
+                android:id="@+id/btnDetailfilmassocie"
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/picture_associate_film"
+                    android:layout_width="match_parent"
+                    android:layout_height="132dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/target_movie"/>
+
+                <TextView
+                    android:id="@+id/name_associate_film"
+                    android:theme="@style/actorName"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Target"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

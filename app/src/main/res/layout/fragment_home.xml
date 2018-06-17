@@ -1,0 +1,44 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <Button
+                android:id="@+id/btnmovies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Film en cour"/>
+
+            <Button
+                android:id="@+id/btnseries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="serie en cour"
+                android:layout_marginLeft="24dp"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycleViewHome"/>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">iWatch</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    ﻿
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="acceuil">ACCUEIL</string>
+    <string name="cinema">CINEMA</string>
+    <string name="serie">SERIES</string>
+    <string name="acteur">ACTEURS</string>
+    <string name="fun">FUN</string>
+    <string name="realisateur">REALISATEURS</string>
+    <string name="date_naissance">Date de Naissance : </string>
+    <string name="lieu_naissance">Lieu : </string>
+    <string name="film">FILMS</string>
+    <string name="rooms">SALLES</string>
+    <string name="directeur">Directeur : </string>
+    <string name="evaluer">ÉVALUER</string>
+    <string name="storyline">SYNOPSIS ET DÉTAILS</string>
+    <string name="detail">DÉTAILS</string>
+    <string name="commentaire">COMMENTAIRES</string>
+    <string name="film_associe">Films Associés</string>
+    <string name="diffusion">Diffusion</string>
+    <string name="grade_now">Évaluer l\'épisode</string>
+    <string name="bio">Biographie</string>
+    <string name="filmo">Filmographie</string>
+    <string name="episodes">EPISODES</string>
+    <string name="serieL">Série Liées</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="api_key">94327dc22a17d2c12b806d241682cd96</string>
+
+
+</resources>
