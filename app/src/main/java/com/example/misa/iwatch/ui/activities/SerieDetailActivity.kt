@@ -29,7 +29,7 @@ class SerieDetailActivity : AppCompatActivity() {
          serie = bundle!!.getSerializable("serie") as Series
         index=bundle!!.getInt("index_serie")
 
-        pictureSerie.setImageResource(serie!!.image)
+        //pictureSerie.setImageResource(serie!!.image)
         title_serie_detail.text= serie!!.titre
         details_serie.text= serie!!.info
         directorName_serie.text= serie!!.directeur
@@ -42,7 +42,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
 
         rateResultSerie.visibility = View.GONE
-        rating_serie.rating  = moy(serie!!.eval)
+        rating_serie.rating  = serie!!.voteAverage
 
         setTitle(serie!!.titre)
         /****************************************** Add Video *************************************/
@@ -83,16 +83,7 @@ class SerieDetailActivity : AppCompatActivity() {
         return true
     }
 
-    fun rateMe_serie(view: View) {
-        data.Series[index].eval.add(rating_serie.rating)
-        serie!!.eval.add(rating_serie.rating)
-        rating_serie.rating=moy(serie!!.eval)
-        submit_rate_serie.visibility= View.GONE
 
-
-        rateResultSerie.visibility = View.VISIBLE
-        rateSerie.text = moy(serie!!.eval).toString().substring(0,3)
-    }
 
     fun moy(eval: ArrayList<Float>):Float{
         var star:Float= 0.0F

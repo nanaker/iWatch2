@@ -17,10 +17,11 @@ import com.example.misa.iwatch.entity.Movie
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import com.bumptech.glide.Glide
 
 
-class MoviesAdapter: PagedListAdapter<Movie,MoviesAdapter.ViewHolder>(Movie.DIFF_CALL) {
-    private var context: Context? = null
+class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,MoviesAdapter.ViewHolder>(Movie.DIFF_CALL) {
+
 
 
 
@@ -29,10 +30,13 @@ class MoviesAdapter: PagedListAdapter<Movie,MoviesAdapter.ViewHolder>(Movie.DIFF
         Log.d("position ",position.toString())
         holder?.titre?.text = getItem(position)?.title
         Log.d("ITEM:","${position} : ${getItem(position)?.title}")
-        holder?.info?.text = getItem(position)?.info
+        holder?.info?.text = getItem(position)?.info?.take(50)+"..."
         holder?.directeur?.text = getItem(position)?.directeur
+        Glide.with(context)
+                .load(getItem(position)?.image)
+                .into(holder?.image)
         //holder?.image?.setImageResource(getItem(position).image)
-       // holder?.grade?.text =  moy(getItem(position)?.eval).toString().substring(0,3)
+       holder?.grade?.text =  getItem(position)?.voteAverage.toString()
 
 
 
@@ -52,7 +56,6 @@ class MoviesAdapter: PagedListAdapter<Movie,MoviesAdapter.ViewHolder>(Movie.DIFF
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
-        context=v.context
         return ViewHolder(v)
     }
 

@@ -47,7 +47,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         rateResult.visibility = View.GONE
 
-        rating_movie.rating = moy(film!!.eval)
+        rating_movie.rating = film!!.voteAverage
 
         setTitle("Details")
 
@@ -99,13 +99,13 @@ class MovieDetailActivity : AppCompatActivity() {
 
     fun rateMe(view: View) {
 
-        data.Films[index].eval.add(rating_movie.rating)
+       // data.Films[index].voteAverage.add(rating_movie.rating)
 
-        film!!.eval.add(rating_movie.rating)
-        rating_movie.rating = moy(film!!.eval)
+        //film!!.voteAverage.add(rating_movie.rating)
+        //rating_movie.rating = moy(film!!.voteAverage)
         submit.visibility = View.GONE
         rateResult.visibility = View.VISIBLE
-        rate.text = moy(film!!.eval).toString().substring(0,3)
+       // rate.text = moy(film!!.voteAverage).toString().substring(0,3)
     }
 
     fun moy(eval: ArrayList<Float>):Float{

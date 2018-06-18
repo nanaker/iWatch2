@@ -14,21 +14,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.activities.SerieDetailActivity
 import com.example.misa.iwatch.entity.Series
 import kotlin.math.log
 
-class SeriesAdapter: PagedListAdapter<Series,SeriesAdapter.ViewHolder>(Series.DIFF_CALL) {
-    private var context: Context? = null
+class SeriesAdapter(private val context: Context): PagedListAdapter<Series,SeriesAdapter.ViewHolder>(Series.DIFF_CALL) {
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.titre?.text = getItem(position)?.titre
         Log.d("Series"," item is ${getItem(position)?.titre}")
-        holder?.info?.text = getItem(position)?.info
+        holder?.info?.text = getItem(position)?.info?.take(50)+"..."
         holder?.directeur?.text = getItem(position)?.directeur
-       // holder?.image?.setImageResource(getItem(position)?.image)
-       // holder?.grade?.text=moy(getItem(position)?.eval).toString().substring(0,3)
+        Glide.with(context)
+                .load(getItem(position)?.image)
+                .into(holder?.image)
+        holder?.grade?.text=getItem(position)?.voteAverage.toString()
 
 
 
@@ -50,7 +53,6 @@ class SeriesAdapter: PagedListAdapter<Series,SeriesAdapter.ViewHolder>(Series.DI
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.serie_item, parent, false)
-        context=v.context
         return ViewHolder(v);
     }
 

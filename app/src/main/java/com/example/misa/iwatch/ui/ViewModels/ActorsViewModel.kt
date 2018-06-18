@@ -2,17 +2,23 @@ package com.example.misa.iwatch.ui.ViewModels
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
+import com.example.misa.iwatch.Repository.actors.ActorsRepository
+import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.entity.Personnes
 
-class ActorsViewModel:ViewModel(){
-    val actors:MutableLiveData<List<Personnes>> = MutableLiveData()
+class ActorsViewModel(actorsRepo: ActorsRepository):ViewModel(){
+    val actorsViewModel:MutableLiveData<List<Movie>> = MutableLiveData()
 
-    fun getActors():LiveData<List<Personnes>>{
-        if(actors.value?.size == 0){
-            //load data
-        }
-        return actors
-    }
+    val filmsOnTheater = Transformations.switchMap(actorsRepo.getPopularActors(),{
+        it.pagedList
+    })!!
+
+    val networkState = Transformations.switchMap(actorsRepo.getPopularActors(),{
+        it.networkState
+    })!!
+
+
 
 }

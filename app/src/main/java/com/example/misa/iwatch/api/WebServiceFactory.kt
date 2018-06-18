@@ -11,7 +11,7 @@ class WebServiceFactory {
 
     companion object {
          val BASE_URL = "https://api.themoviedb.org/3/"
-         val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/"
+         val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
          val API_DEFAULT_PAGE_KEY = 1
 
         private val builder = Retrofit.Builder().baseUrl(BASE_URL)

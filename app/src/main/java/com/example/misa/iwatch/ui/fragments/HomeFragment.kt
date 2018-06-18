@@ -37,8 +37,12 @@ class HomeFragment: Fragment() {
 
     private lateinit var rootView: View
     private lateinit var  recyclerView:RecyclerView
-    private val moviesAdapter: MoviesAdapter  = MoviesAdapter()
-    private val seriesAdapter: SeriesAdapter = SeriesAdapter()
+    private val moviesAdapter by lazy {
+        MoviesAdapter(context!!)
+    }
+    private val seriesAdapter by lazy {
+        SeriesAdapter(context!!)
+    }
 
 
 

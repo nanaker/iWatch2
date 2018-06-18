@@ -147,9 +147,9 @@ class data {
                 associateFilm.add(Film("Pirate des caraaibe", R.drawable.pirate, 2))
 
 
-                Films.add(Movie("Guardian of the galaxy", "Action Aventure ", "James  Gunn", R.drawable.guardians_galaxy, evar, comments, storyline, Actors, realisateur, room, associateFilm, R.raw.video_harry.toString(),false))
-                Films.add(Movie("Wonder Women", "Action, Adventure, Fantasy  ", "Patty Jenkins", R.drawable.wonder_women, evar1, comments1, storyline1, Actors2, realisateur2, room, associateFilm, R.raw.video_harry.toString(),false))
-                Films.add(Movie("PIRATES DES CARAÏBES", "Aventure, Fantastique, Action ", "Espen Sandberg", R.drawable.pirate, evar, comments2, storyline2, Actors3, realisateur3, room, associateFilm, R.raw.video_harry.toString(),false))
+          //      Films.add(Movie("Guardian of the galaxy", "Action Aventure ", "James  Gunn", R.drawable.guardians_galaxy, evar, comments, storyline, Actors, realisateur, room, associateFilm, R.raw.video_harry.toString(),false))
+                        //    Films.add(Movie("Wonder Women", "Action, Adventure, Fantasy  ", "Patty Jenkins", R.drawable.wonder_women, evar1, comments1, storyline1, Actors2, realisateur2, room, associateFilm, R.raw.video_harry.toString(),false))
+       //         Films.add(Movie("PIRATES DES CARAÏBES", "Aventure, Fantastique, Action ", "Espen Sandberg", R.drawable.pirate, evar, comments2, storyline2, Actors3, realisateur3, room, associateFilm, R.raw.video_harry.toString(),false))
 
             }
             return this.Films
@@ -233,9 +233,9 @@ class data {
                 saisons_vikings.add(Saisons("saison 2", "le debut de la saison sortie en 2016 ", R.drawable.vikings_saison2, evar, comments, storyline2, episodes_vikings_s2, Actors,R.raw.vikings.toString()))
                 saisons_vikings.add(Saisons("saison 3", "le debut de la saison sortie en 2017 ", R.drawable.vikings_saison3, evar, comments, storyline2, episodes_vikings_s3, Actors,R.raw.vikings.toString()))
 
-                Series.add(Series("La casa del papel", "Action Aventure ", "Álvaro Morte", R.drawable.casadelpapel, evar, comments, storyline, seriesL, saisons_casa, R.raw.casa.toString(),false))
-                Series.add(Series("Game Of Thrones", "DRAME FANTASTIQUE  ", " David Benioff", R.drawable.gameofthrones, evar, comments, storyline1, seriesL1, saisons_game, R.raw.game.toString(),false))
-                Series.add(Series("Vikings ", "AVENTURE DRAME HISTORIQUE ", "Michael Hirst ", R.drawable.vikings, evar, comments, storyline2, seriesL2, saisons_vikings, R.raw.vikings.toString(),false))
+              //  Series.add(Series("La casa del papel", "Action Aventure ", "Álvaro Morte", R.drawable.casadelpapel, evar, comments, storyline, seriesL, saisons_casa, R.raw.casa.toString(),false))
+                // Series.add(Series("Game Of Thrones", "DRAME FANTASTIQUE  ", " David Benioff", R.drawable.gameofthrones, evar, comments, storyline1, seriesL1, saisons_game, R.raw.game.toString(),false))
+                //Series.add(Series("Vikings ", "AVENTURE DRAME HISTORIQUE ", "Michael Hirst ", R.drawable.vikings, evar, comments, storyline2, seriesL2, saisons_vikings, R.raw.vikings.toString(),false))
 
 
             }

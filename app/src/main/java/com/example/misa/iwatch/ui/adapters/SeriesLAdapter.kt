@@ -22,8 +22,8 @@ class SeriesLAdapter(val serieList: ArrayList<Series>): RecyclerView.Adapter<Ser
         holder?.titre?.text = serieList[position].titre
         holder?.info?.text = serieList[position].info
         holder?.directeur?.text = serieList[position].directeur
-        holder?.image?.setImageResource(serieList[position].image)
-        holder?.grade?.text=moy(serieList[position].eval).toString().substring(0,3)
+        //holder?.image?.setImageResource(serieList[position].image)
+        holder?.grade?.text=serieList[position].voteAverage.toString()
 
 
        holder?.details!!.setOnClickListener {

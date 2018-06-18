@@ -23,7 +23,7 @@ class PageKeyedSeriesDataSource(tmdbApi: TMDBApi):BaseDataSource<Series>(tmdbApi
                     val pageNum :Int = response.body()?.page!!.toInt()
 
 
-                    callback.onResult(items,null,pageNum+1)
+                    callback.onResult(items,null,(pageNum+1))
                     networkState.postValue(NetworkState.LOADED)
 
                 }else{
@@ -43,7 +43,7 @@ class PageKeyedSeriesDataSource(tmdbApi: TMDBApi):BaseDataSource<Series>(tmdbApi
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Series>) {
         networkState.postValue(NetworkState.LOADING)
-        tmdbApi.getSeriesOnTheAir(1).enqueue(object : Callback<TMDBApi.ListingData<Series>> {
+        tmdbApi.getSeriesOnTheAir(params.key).enqueue(object : Callback<TMDBApi.ListingData<Series>> {
 
             override fun onResponse(call: Call<TMDBApi.ListingData<Series>>, response: Response<TMDBApi.ListingData<Series>>) {
                 if(response.isSuccessful){

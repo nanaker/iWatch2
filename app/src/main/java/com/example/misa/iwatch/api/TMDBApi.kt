@@ -1,5 +1,6 @@
 package com.example.misa.iwatch.api
 
+import com.example.misa.iwatch.Repository.Listing
 import com.example.misa.iwatch.entity.Film
 import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.entity.Personnes
@@ -58,6 +59,9 @@ interface TMDBApi {
     fun getMovieUserReview(@Path("movie_id") id: Int): Call<Comment>
 
 
+
+    @GET("person/popular")
+    fun getPopularPersonne(@Query("page") pageNumber: Int): Call<ListingData<Personnes>>
     /**
      * Get the primary person details by id.
      */
