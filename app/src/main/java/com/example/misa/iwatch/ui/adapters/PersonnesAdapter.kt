@@ -22,8 +22,8 @@ class PersonnesAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapte
         holder?.nom?.text = actorList[position].nom
         holder?.dateB?.text = actorList[position].dateNaissance
         holder?.placeB?.text = actorList[position].LieuNiassance
-        holder?.image?.setImageResource(actorList[position].image)
-        holder?.grade?.text =  moy(actorList[position].eval).toString().substring(0,3)
+      //  holder?.image?.setImageResource(actorList[position].image)
+        holder?.grade?.text = actorList[position].eval.toString()
 
 
        holder?.details!!.setOnClickListener {

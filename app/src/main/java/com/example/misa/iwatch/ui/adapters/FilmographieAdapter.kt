@@ -19,18 +19,18 @@ import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
 import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
 
-class FilmographieAdapter(val associateFilmList: ArrayList<Film>): RecyclerView.Adapter<FilmographieAdapter.ViewHolder>() {
+class FilmographieAdapter(val associateFilmList: ArrayList<associate_Movie>): RecyclerView.Adapter<FilmographieAdapter.ViewHolder>() {
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.name?.text = associateFilmList[position].titre
-        holder?.image?.setImageResource(associateFilmList[position].image)
+        holder?.name?.text = associateFilmList[position].title
+       // holder?.image?.setImageResource(associateFilmList[position].image)
 
         holder?.detail?.setOnClickListener {
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
             val films= getMoviesRecent()
-            bundle.putSerializable("film", films[associateFilmList[position].index])
+            bundle.putSerializable("film", associateFilmList[position].id)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

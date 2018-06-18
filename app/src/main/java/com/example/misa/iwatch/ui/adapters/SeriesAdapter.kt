@@ -27,7 +27,6 @@ class SeriesAdapter(private val context: Context): PagedListAdapter<Series,Serie
         holder?.titre?.text = getItem(position)?.titre
         Log.d("Series"," item is ${getItem(position)?.titre}")
         holder?.info?.text = getItem(position)?.info?.take(50)+"..."
-        holder?.directeur?.text = getItem(position)?.directeur
         Glide.with(context)
                 .load(getItem(position)?.image)
                 .into(holder?.image)

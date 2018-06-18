@@ -20,7 +20,7 @@ class FilmographieFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_filmographie, container, false)
-        val films = this.arguments?.getSerializable("filmographie")as ArrayList<Film>
+        val films = this.arguments?.getSerializable("filmographie")as ArrayList<associate_Movie>
         val rv = rootView.findViewById<RecyclerView>(R.id.recycleViewFilmographie)
         rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
 
@@ -33,7 +33,7 @@ class FilmographieFragment : Fragment() {
     }
     companion object {
 
-        fun newInstance( filmographie : ArrayList<Film>): FilmographieFragment {
+        fun newInstance( filmographie : ArrayList<associate_Movie>): FilmographieFragment {
 
             val args = Bundle()
 

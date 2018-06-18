@@ -31,7 +31,7 @@ class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,Movies
         holder?.titre?.text = getItem(position)?.title
         Log.d("ITEM:","${position} : ${getItem(position)?.title}")
         holder?.info?.text = getItem(position)?.info?.take(50)+"..."
-        holder?.directeur?.text = getItem(position)?.directeur
+        holder?.directeur?.text = getItem(position)?.release_date
         Glide.with(context)
                 .load(getItem(position)?.image)
                 .into(holder?.image)

@@ -15,13 +15,14 @@ import android.widget.*
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.activities.SerieDetailActivity
 import com.example.misa.iwatch.entity.Series
+import com.example.misa.iwatch.entity.associate_series
 
-class SeriesLAdapter(val serieList: ArrayList<Series>): RecyclerView.Adapter<SeriesLAdapter.ViewHolder>() {
+class SeriesLAdapter(val serieList: ArrayList<associate_series>): RecyclerView.Adapter<SeriesLAdapter.ViewHolder>() {
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.titre?.text = serieList[position].titre
+        holder?.titre?.text = serieList[position].nom
         holder?.info?.text = serieList[position].info
-        holder?.directeur?.text = serieList[position].directeur
+      //  holder?.directeur?.text = serieList[position].directeu
         //holder?.image?.setImageResource(serieList[position].image)
         holder?.grade?.text=serieList[position].voteAverage.toString()
 
@@ -30,7 +31,7 @@ class SeriesLAdapter(val serieList: ArrayList<Series>): RecyclerView.Adapter<Ser
 
            val intent = Intent(context, SerieDetailActivity::class.java)
            val bundle = Bundle()
-           bundle.putSerializable("serie", serieList[position])
+           bundle.putSerializable("serie", serieList[position].id)
            bundle.putInt("index_serie", position)
            intent.putExtras(bundle)
 

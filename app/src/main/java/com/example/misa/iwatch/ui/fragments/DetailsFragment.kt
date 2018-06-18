@@ -34,7 +34,7 @@ class DetailsFragment: android.support.v4.app.Fragment() {
 
         val image = rootView.findViewById<ImageView>(R.id.RealisatorDetailPicture)
         nom?.text=film.realisateur.nom
-        image?.setImageResource(film.realisateur.image)
+        //image?.setImageResource(film.realisateur.image)
 
         var adapter_actor = ActorsDetailAdapter(film.actors)
         rv_actor.adapter = adapter_actor

@@ -17,12 +17,13 @@ import android.widget.TextView
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.activities.PersonDetailActivity
 import com.example.misa.iwatch.entity.Personnes
+import com.example.misa.iwatch.entity.associate_Actors
 
-class ActorsDetailAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapter<ActorsDetailAdapter.ViewHolder>() {
+class ActorsDetailAdapter(val actorList: ArrayList<associate_Actors>): RecyclerView.Adapter<ActorsDetailAdapter.ViewHolder>() {
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.nom?.text = actorList[position].nom
-        holder?.image?.setImageResource(actorList[position].image)
+      //  holder?.image?.setImageResource(actorList[position].image)
         holder?.details?.setOnClickListener {
 
             val intent = Intent(context, PersonDetailActivity::class.java)

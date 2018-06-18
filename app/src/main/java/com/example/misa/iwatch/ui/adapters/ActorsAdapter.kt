@@ -27,7 +27,7 @@ class ActorsAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapter<A
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.nom?.text = actorList[position].nom
         holder?.dateB?.text = actorList[position].dateNaissance
-        holder?.image?.setImageResource(actorList[position].image)
+       // holder?.image?.setImageResource(actorList[position].image)
         holder?.details?.setOnClickListener {
 
             val intent = Intent(context, PersonDetailActivity::class.java)

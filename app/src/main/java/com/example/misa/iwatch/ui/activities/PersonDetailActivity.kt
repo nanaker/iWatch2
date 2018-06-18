@@ -31,7 +31,7 @@ class PersonDetailActivity : AppCompatActivity() {
         birthplace.text=personnes!!.LieuNiassance
         birthdate.text=personnes!!.dateNaissance
         bibliographie.text=personnes!!.bibliographie
-        rating_personne.rating=moy(personnes!!.eval)
+        rating_personne.rating=personnes!!.eval
         picturePersonneDetail.setImageResource(personnes!!.image2)
 
         rateResultPerson.visibility = View.GONE
@@ -51,7 +51,7 @@ class PersonDetailActivity : AppCompatActivity() {
         supportActionBar?.title = personnes.nom
     }
 
-    fun rateMe_personne(view: View) {
+  /*  fun rateMe_personne(view: View) {
 
         personnes!!.eval.add(rating_personne.rating)
         rating_personne.rating=moy(personnes!!.eval)
@@ -60,7 +60,7 @@ class PersonDetailActivity : AppCompatActivity() {
 
         rateResultPerson.visibility = View.VISIBLE
         ratePerson.text = moy(personnes!!.eval).toString().substring(0,3)
-    }
+    }*/
 
     fun moy(eval: ArrayList<Float>):Float{
         var star:Float= 0.0F

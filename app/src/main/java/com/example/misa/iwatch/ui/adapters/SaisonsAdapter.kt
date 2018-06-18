@@ -23,7 +23,7 @@ class SaisonsAdapter(val saisonList: ArrayList<Saisons>): RecyclerView.Adapter<S
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.titre?.text = saisonList[position].titre
         holder?.info?.text = saisonList[position].info
-        holder?.image?.setImageResource(saisonList[position].image)
+      //  holder?.image?.setImageResource(saisonList[position].image)
 
 
 

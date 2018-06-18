@@ -37,8 +37,8 @@ class MovieDetailActivity : AppCompatActivity() {
         //picturePersonne.setImageResource(film!!.image)
         title_movie_detail.text= film!!.title
         details_movie.text= film!!.info
-        directorName_detail.text= film!!.directeur
-        storyLine.text= film!!.storyline
+        directorName_detail.text= film!!.release_date
+        storyLine.text= film!!.info
         if(film!!.fav) movieFavori.isFavorite = true
 
         setSupportActionBar(findViewById(R.id.my_toolbar))

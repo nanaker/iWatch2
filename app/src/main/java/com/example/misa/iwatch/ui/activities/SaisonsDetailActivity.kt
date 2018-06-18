@@ -30,7 +30,7 @@ class SaisonsDetailActivity : AppCompatActivity() {
         saison = bundle!!.getSerializable("saison_detail") as Saisons
 
 
-        picturesaison.setImageResource(saison!!.image)
+       // picturesaison.setImageResource(saison!!.image)
         title_saison_detail.text= saison!!.titre
         details_saison.text= saison!!.info
 
@@ -57,7 +57,7 @@ class SaisonsDetailActivity : AppCompatActivity() {
 
 
         rateResult_saison.visibility = View.GONE
-        rating_saison.rating=moy(saison!!.eval)
+
 
         setTitle(saison!!.titre)
 
@@ -79,25 +79,6 @@ class SaisonsDetailActivity : AppCompatActivity() {
         }
         return true
     }
-    fun rateMe_saison(view: View) {
-        saison!!.eval.add(rating_saison.rating)
-        rating_saison.rating=moy(saison!!.eval)
-        submit_saison.visibility= View.GONE
 
 
-        rateResult_saison.visibility = View.VISIBLE
-        rate_saison.text = moy(saison!!.eval).toString().substring(0,3)
-    }
-
-    fun moy(eval: ArrayList<Float>):Float{
-        var star:Float= 0.0F
-
-        for (value in eval ){
-            star=star+value
-        }
-        star=star/eval.size
-
-        return star;
-
-    }
 }

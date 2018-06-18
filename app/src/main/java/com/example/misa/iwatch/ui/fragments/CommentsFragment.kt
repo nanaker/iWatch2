@@ -49,7 +49,7 @@ class CommentsFragment : Fragment() {
                 false
             } else {
 
-                addComment(v.text.toString(),id_image)
+                //addComment(v.text.toString(),id_image)
                 v.text=""
 
 
@@ -76,13 +76,13 @@ class CommentsFragment : Fragment() {
         }
     }
 
-    fun addComment(v:String, id:Int) {
+   /* fun addComment(v:String, id:Int) {
 
         comments.add(Comments("newUser",v,id))
         var adapter = CommentAdapter(comments)
         rv.adapter = adapter
         rv.invalidate()
-    }
+    }*/
     fun random_id():Int{
         var id=R.drawable.e
         val num=(0..12).random()

@@ -32,8 +32,8 @@ class SerieDetailActivity : AppCompatActivity() {
         //pictureSerie.setImageResource(serie!!.image)
         title_serie_detail.text= serie!!.titre
         details_serie.text= serie!!.info
-        directorName_serie.text= serie!!.directeur
-        storyLine_serie.text= serie!!.storyline
+       // directorName_serie.text= serie!!.
+        storyLine_serie.text= serie!!.info
         if(serie!!.fav) serieFavori.isFavorite = true
 
         setSupportActionBar(findViewById(R.id.my_toolbar))

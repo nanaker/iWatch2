@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.adapters.SeriesLAdapter
 import com.example.misa.iwatch.entity.Series
+import com.example.misa.iwatch.entity.associate_series
 import com.example.misa.iwatch.entity.data.Companion.getSeriesRecent
 
 /**
@@ -21,22 +22,18 @@ class SeriesLFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_series_liee, container, false)
-        val series = this.arguments?.getSerializable("Seriesliees") as ArrayList<Int>
+        val series = this.arguments?.getSerializable("Seriesliees") as ArrayList<associate_series>
         val rv = rootView.findViewById<RecyclerView>(R.id.recycleViewSeriesLiees)
         rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
 
-         var seriestot= getSeriesRecent()
 
-        for (item in series){
-            seriesLiee.add(seriestot[item])
-        }
-        var adapter = SeriesLAdapter(this.seriesLiee!!)
+        var adapter = SeriesLAdapter(series)
         rv.adapter = adapter
         return rootView
     }
     companion object {
 
-        fun newInstance( seriesL : ArrayList<Int>): SeriesLFragment {
+        fun newInstance( seriesL : ArrayList<associate_series>): SeriesLFragment {
 
             val args = Bundle()
 

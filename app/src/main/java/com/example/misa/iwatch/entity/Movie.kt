@@ -9,22 +9,34 @@ import java.io.Serializable
  * Created by NAWAL on 28/03/2018.
  */
  class Movie(
+        @SerializedName("id")
+        var id:Int,
         @SerializedName("title")
-        val title: String,
+        var title: String,
         @SerializedName("overview")
-        var info: String,
-        var directeur: String,
+        var info : String,
+        @SerializedName("genre_ids")
+        var genres_id : ArrayList<Int>,
+        @SerializedName("release_date")
+        var release_date:String,
+        //Detail movies
+        @SerializedName("genres")
+        var genres:ArrayList<Genre>,
+        var associatefilm : ArrayList<associate_Movie>,
+        var actors: ArrayList<associate_Actors>,
+        var room :ArrayList<Room>,
+        var comments : ArrayList<Comments>,
+
+
+        var realisateur :Personnes,
+
+
+        var video:String,
+        var fav:Boolean,
         image: String,
         @SerializedName("vote_average")
-        var voteAverage: Float,
-        var comments : ArrayList<Comments>,
-        var storyline : String,
-        var actors: ArrayList<Personnes>,
-        var realisateur :Personnes,
-        var room :ArrayList<Room>,
-        var associatefilm : ArrayList<Film>,
-        var video:String,
-        var fav:Boolean): Serializable{
+        var voteAverage: Float
+           ): Serializable{
         @SerializedName("poster_path")
         val image:String =  image
             get() = WebServiceFactory.IMAGE_BASE_URL+field
