@@ -24,7 +24,7 @@ import java.io.Serializable
         var genres:ArrayList<Genre>,
         var associatefilm : ArrayList<associate_Movie>,
         var actors: ArrayList<associate_Actors>,
-        var room :ArrayList<Room>,
+        var room :ArrayList<Cinema>,
         var comments : ArrayList<Comments>,
 
 

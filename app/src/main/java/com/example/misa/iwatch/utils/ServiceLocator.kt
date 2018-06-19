@@ -1,11 +1,13 @@
 package com.example.misa.iwatch.utils
 
 import com.example.misa.iwatch.Repository.IRepository
+import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
 import com.example.misa.iwatch.Repository.actors.ActorsRepository
 import com.example.misa.iwatch.Repository.Movies.MovieRepository
 import com.example.misa.iwatch.Repository.sieries.SeriesRepository
 import com.example.misa.iwatch.api.TMDBApi
 import com.example.misa.iwatch.api.WebServiceFactory
+import com.example.misa.iwatch.api.WebServiceFactory2
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -22,6 +24,7 @@ interface ServiceLocator{
     fun getNetworkExecutor():Executor
     fun getDiskIOExecutor():Executor
     fun getApi():TMDBApi
+    fun getApi2():TMDBApi
     fun getRepository(repositoryType:IRepository.Type):IRepository
 }
 
@@ -33,12 +36,17 @@ class DefaultServiceLocator: ServiceLocator{
     private val tmdbApi by lazy {
         WebServiceFactory.create(TMDBApi::class.java)
     }
+    private val tmdbApi2 by lazy {
+        WebServiceFactory2.create(TMDBApi::class.java)
+    }
 
     override fun getNetworkExecutor() = NETWORK_IO
 
     override fun getDiskIOExecutor() = DISK_IO
 
     override fun getApi() = tmdbApi
+    override fun getApi2() = tmdbApi2
+
 
     override fun getRepository(repositoryType: IRepository.Type): IRepository {
        return when(repositoryType){
@@ -54,6 +62,9 @@ class DefaultServiceLocator: ServiceLocator{
            IRepository.Type.SERIES->SeriesRepository(
                    tmdbApi = getApi(),
                    networkExecutor = getNetworkExecutor()
+           )
+           IRepository.Type.DETAILMOVIE -> MovieDetailRepository(
+                   tmdbApi= getApi2()
            )
        }
     }

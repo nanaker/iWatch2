@@ -13,7 +13,6 @@ import com.example.misa.iwatch.entity.Saisons
 import com.example.misa.iwatch.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.activity_saison_detail.*
-import java.util.ArrayList
 
 class SaisonsDetailActivity : AppCompatActivity() {
     lateinit var saison :Saisons
@@ -65,7 +64,7 @@ class SaisonsDetailActivity : AppCompatActivity() {
 
         pageAdapter.addFragment(EpisodeFragment.newInstance(saison!!.episode), "EPISODE")
         pageAdapter.addFragment(ActorsFragment.newInstance(saison!!.actors), "ACTORS")
-        pageAdapter.addFragment(CommentsFragment.newInstance(saison!!.comments), "COMMENTS")
+       // pageAdapter.addFragment(CommentsFragment.newInstance(saison!!.), "COMMENTS")
 
 
         saisonContainer.adapter = pageAdapter

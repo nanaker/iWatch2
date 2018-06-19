@@ -44,8 +44,9 @@ class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,Movies
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("film", getItem(position))
-            bundle.putInt("index_movie", position)
+                    // bundle.putSerializable("film", getItem(position))
+            println("movie_id"+ getItem(position)!!.id)
+            bundle.putInt("id_movie", getItem(position)!!.id)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)
@@ -66,7 +67,7 @@ class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,Movies
         val titre = itemView.findViewById<TextView>(R.id.title)
         val info = itemView.findViewById<TextView>(R.id.details)
         val directeur = itemView.findViewById<TextView>(R.id.directorName)
-        val image = itemView.findViewById<ImageView>(R.id.picturePersonne)
+        val image = itemView.findViewById<ImageView>(R.id.pictureMovieDetail)
         val details = itemView.findViewById<RelativeLayout>(R.id.btnMovieDetail)
         val grade= itemView.findViewById<Button>(R.id.grade)
 

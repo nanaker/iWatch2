@@ -65,7 +65,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
         pageAdapter.addFragment(SaisonsFragment.newInstance(serie!!.saisons), "SAISONS")
         pageAdapter.addFragment(SeriesLFragment.newInstance(serie!!.seriesliees), "SERIES LIEES")
-        pageAdapter.addFragment(CommentsFragment.newInstance(serie!!.comments), "COMMENTS")
+     //   pageAdapter.addFragment(CommentsFragment.newInstance(serie!!.comments), "COMMENTS")
 
 
         SeriesContainer.adapter = pageAdapter

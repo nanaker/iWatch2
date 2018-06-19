@@ -59,7 +59,7 @@ class PersonnesAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapte
         val nom = itemView.findViewById<TextView>(R.id.Nom)
         val dateB = itemView.findViewById<TextView>(R.id.dateB)
         val placeB = itemView.findViewById<TextView>(R.id.PlaceB)
-        val image = itemView.findViewById<ImageView>(R.id.picturePersonne)
+        val image = itemView.findViewById<ImageView>(R.id.pictureMovieDetail)
         val details = itemView.findViewById<RelativeLayout>(R.id.btnPersonneDetail)
         val grade= itemView.findViewById<Button>(R.id.grade_personne)
 

@@ -5,8 +5,7 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    ﻿
+    <string name="title_activity_main2">Main2Activity</string>﻿
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="acceuil">ACCUEIL</string>
@@ -33,6 +32,7 @@
     <string name="serieL">Série Liées</string>
     <string name="title_activity_maps">Map</string>
     <string name="api_key">94327dc22a17d2c12b806d241682cd96</string>
+    <string name="date">Date de sortie</string>
 
 
 </resources>

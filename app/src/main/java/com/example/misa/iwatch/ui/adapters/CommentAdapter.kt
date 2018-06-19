@@ -4,6 +4,7 @@ package com.example.misa.iwatch.ui.adapters
  * Created by NAWAL on 28/03/2018.
  */
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -41,7 +42,8 @@ class CommentAdapter(val commentList: ArrayList<Comments>): RecyclerView.Adapter
 
         val user = itemView.findViewById<TextView>(R.id.userName)
         val comment = itemView.findViewById<TextView>(R.id.comment)
-        val image = itemView.findViewById<ImageView>(R.id.userAvatar)
+        @SuppressLint("ResourceType")
+        val image = itemView.findViewById<ImageView>(R.drawable.g)
 
 
 

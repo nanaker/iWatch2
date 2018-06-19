@@ -57,7 +57,7 @@ class EpisodeDetailActivity : AppCompatActivity() {
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
 
         pageAdapter.addFragment(DiffusionFragment.newInstance(episode!!.diffusion), "DIFFUSION")
-        pageAdapter.addFragment(CommentsFragment.newInstance(episode!!.comments), "COMMENTS")
+       // pageAdapter.addFragment(CommentsFragment.newInstance(episode!!.comments), "COMMENTS")
 
 
         episodeContainer.adapter = pageAdapter
