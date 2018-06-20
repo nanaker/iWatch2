@@ -30,7 +30,8 @@ class SeriesAdapter(private val context: Context): PagedListAdapter<Series,Serie
         Glide.with(context)
                 .load(getItem(position)?.image)
                 .into(holder?.image)
-        holder?.grade?.text=getItem(position)?.voteAverage.toString()
+        holder?.grade?.text=getItem(position)?.voteAverage.toString().substring(0,3)
+        holder?.directeur?.text = getItem(position)?.date
 
 
 
@@ -40,8 +41,8 @@ class SeriesAdapter(private val context: Context): PagedListAdapter<Series,Serie
 
            val intent = Intent(context, SerieDetailActivity::class.java)
            val bundle = Bundle()
-           bundle.putSerializable("serie", getItem(position))
-           bundle.putInt("index_serie", position)
+
+           bundle.putInt("id_serie", getItem(position)?.id!!)
            intent.putExtras(bundle)
 
            context!!.startActivity(intent)

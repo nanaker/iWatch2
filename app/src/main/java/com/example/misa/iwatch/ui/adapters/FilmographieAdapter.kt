@@ -14,7 +14,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
 import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
@@ -23,14 +25,15 @@ class FilmographieAdapter(val associateFilmList: ArrayList<associate_Movie>): Re
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.name?.text = associateFilmList[position].title
-       // holder?.image?.setImageResource(associateFilmList[position].image)
+        Glide.with(this!!.context!!)
+                .load(WebServiceFactory.IMAGE_BASE_URL +associateFilmList[position]?.image)
+                .into(holder?.image)
 
         holder?.detail?.setOnClickListener {
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
-            val films= getMoviesRecent()
-            bundle.putSerializable("film", associateFilmList[position].id)
+            bundle.putInt("id_movie", associateFilmList[position].id)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

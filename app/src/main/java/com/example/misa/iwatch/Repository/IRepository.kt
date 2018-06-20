@@ -7,6 +7,10 @@ interface IRepository{
      ACTORS,
      MOVIE,
      SERIES,
-      DETAILMOVIE
+      DETAILMOVIE,
+      DETAILSERIE,
+      DETAILPERSONNE,
+      DETAILSAISON,
+      DETAILEPISODE
  }
 }

@@ -12,6 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.*
 import io.reactivex.Observable
+import kotlin.collections.ArrayList
 
 
 interface TMDBApi {
@@ -73,13 +74,13 @@ interface TMDBApi {
      * Get the primary person details by id.
      */
     @GET("person/{person_id}")
-    fun getPersonDetailsById(@Path("person_id") id: Int): Call<Personnes>
+    fun getPersonDetailsById(@Path("person_id") id: Int): Observable<Personnes>
 
     /**
      * Get the movie credits for a person.
      */
     @GET("person/{person_id}/movie_credits")
-    fun getPersonMovieCredits(@Path("person_id") id: Int): Call<Movie>
+    fun getPersonMovieCredits(@Path("person_id") id: Int): Observable<CreditsMovieActorResponse>
 
 
     /**
@@ -92,5 +93,22 @@ interface TMDBApi {
             val results:List<T>,
             val page:String
     )
+
+    @GET("tv/{tv_id}")
+    fun getSerieDetailsById(@Path("tv_id") id: Int): Observable<Series>
+
+    @GET("tv/{tv_id}/reviews")
+    fun getSerieReview(@Path("tv_id") id: Int): Observable<ReviewResponse>
+
+    @GET("tv/{tv_id}/similar")
+    fun getSerieSimilar(@Path("tv_id") id: Int,@Query("page") pageNumber: Int): Observable<SimilarSerieResponse>
+
+    @GET("tv/{tv_id}/season/{season_number}")
+    fun getSaisonDetail(@Path("tv_id") id: Int,@Path("season_number") nb: Int): Observable<Saisons>
+
+    @GET("tv/{tv_id}/season/{season_number}/credits")
+    fun getSaisonCredits(@Path("tv_id") id: Int,@Path("season_number") saison_number: Int): Observable<CreditsResponse>
+
+
 
 }

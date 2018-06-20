@@ -22,10 +22,12 @@ data class Personnes(
         @SerializedName("popularity")
         var eval: Float,
         val comments:ArrayList<Comments>,
+
         val filmographie:ArrayList<associate_Movie>,
 
         var image2: Int ): Serializable
 {
+
 
 
 
