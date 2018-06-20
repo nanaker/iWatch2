@@ -1,5 +1,6 @@
 package com.example.misa.iwatch.entity
 
+import com.example.misa.iwatch.R
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -12,8 +13,8 @@ data class Comments(
         @SerializedName("content")
         val comment: String,
         @SerializedName("id")
-        var id:Int,
-        var image: Int
+        var id:String,
+        val image: Int= R.drawable.a
 ): Serializable
 {
 

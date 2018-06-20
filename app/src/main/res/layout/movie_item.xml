@@ -52,7 +52,7 @@
                         android:theme="@style/director"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/directeur"/>
+                        android:text="@string/date"/>
 
                     <TextView
                         android:id="@+id/directorName"
@@ -68,7 +68,7 @@
 
 
         <ImageView
-            android:id="@+id/picturePersonne"
+            android:id="@+id/pictureMovieDetail"
             android:layout_width="110dp"
             android:layout_height="180dp"
             android:scaleType="fitXY"
@@ -83,8 +83,8 @@
             android:layout_height="25dp"
             android:layout_marginTop="4dp"
 
-            android:layout_alignStart="@+id/picturePersonne"
-            android:layout_alignTop="@+id/picturePersonne"
+            android:layout_alignStart="@+id/pictureMovieDetail"
+            android:layout_alignTop="@+id/pictureMovieDetail"
             android:layout_marginStart="98dp"
             android:background="@drawable/round_button"
             android:text="8.5" />

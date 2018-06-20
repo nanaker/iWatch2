@@ -39,7 +39,7 @@ class PersonDetailActivity : AppCompatActivity() {
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
 
         pageAdapter.addFragment(FilmographieFragment.newInstance(personnes!!.filmographie), "FILMOGRAPHIE")
-        pageAdapter.addFragment(CommentsFragment.newInstance(personnes!!.comments), "COMMENTS")
+      //  pageAdapter.addFragment(CommentsFragment.newInstance(personnes!!.comments), "COMMENTS")
 
        PersonneContainer.adapter = pageAdapter
         Personnetabs.setupWithViewPager(PersonneContainer)

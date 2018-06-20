@@ -17,6 +17,7 @@ import java.util.concurrent.Executor
 enum class DataSourceKey private constructor(s: String) {
     Persons("Persons"),
     Movie("Movie"),
+    MovieDetail("MovieDetail"),
     Series("Series")
 
 
@@ -32,6 +33,7 @@ class PagedListDataSourceFactory<T:Any>(val tmdbApi:TMDBApi,val networkExecutor:
             DataSourceKey.Persons-> source = PageKeyedActorsDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
             DataSourceKey.Movie -> source = PageKeyedMoviesDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
             DataSourceKey.Series -> source = PageKeyedSeriesDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+
         }
 
         dataSourceLiveData.postValue(source)

@@ -1,5 +1,8 @@
 package com.example.misa.iwatch.ui.activities
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,15 +16,28 @@ import android.view.View
 import com.example.misa.iwatch.entity.Movie
 import android.view.MenuItem
 import android.widget.MediaController
+import com.bumptech.glide.Glide
+import com.example.misa.iwatch.Repository.IRepository
+import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
 import kotlin.collections.ArrayList
 import com.example.misa.iwatch.entity.data
+import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
+import com.example.misa.iwatch.utils.ServiceLocator
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 
 class MovieDetailActivity : AppCompatActivity() {
 
    lateinit var film: Movie
-     var index: Int = 0
+     var id: Int = 0
+
+   lateinit var fragmentDetail:DetailsFragment
+    lateinit var fragmentRoom:RoomsFragment
+    lateinit var fragmentComments:CommentsFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,56 +47,36 @@ class MovieDetailActivity : AppCompatActivity() {
         val bundle = intent.extras
 
 
-        film = bundle!!.getSerializable("film") as Movie
-        index=bundle!!.getInt("index_movie")
+        id=bundle!!.getInt("id_movie")
+        println("movie id activity "+id)
 
-        //picturePersonne.setImageResource(film!!.image)
-        title_movie_detail.text= film!!.title
-        details_movie.text= film!!.info
-        directorName_detail.text= film!!.release_date
-        storyLine.text= film!!.info
-        if(film!!.fav) movieFavori.isFavorite = true
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
 
-        setSupportActionBar(findViewById(R.id.my_toolbar))
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = film.title
+        val DetailFilmModel =  MoviesDetailViewModel(repo)
+        DetailFilmModel.getmovie(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError)
 
-        rateResult.visibility = View.GONE
+      movieFavori.setOnClickListener(){
+          println("add fav film ")
+          movieFavori.isFavorite=true
+          film.fav = true
+          film.comments=fragmentComments.comments
+          println("comments size "+film.comments.size+" "+film.comments)
+          film.associatefilm=fragmentDetail.associate_film
+          println("associate film  size "+film.associatefilm.size+" "+film.associatefilm)
+          film.actors=fragmentDetail.associate_Actors
+          film.room=data.getCinema()
+          data.Filmsfav.add(film)
 
-        rating_movie.rating = film!!.voteAverage
-
-        setTitle("Details")
-
-        val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
-
-        pageAdapter.addFragment(DetailsFragment.newInstance(film!!), "DETAILS")
-        pageAdapter.addFragment(RoomsFragment.newInstance(film!!.room), "ROOMS")
-        pageAdapter.addFragment(CommentsFragment.newInstance(film!!.comments), "COMMENTS")
-
-
-        movieContainer.adapter = pageAdapter
-        Movietabs.setupWithViewPager(movieContainer)
-
-
-        /****************************************** Add Video *************************************/
-
-        val mediaController = MediaController(this)
-
-        mediaController.setAnchorView(bande_anonce)
-        bande_anonce.setMediaController(mediaController)
-
-        try {
-            bande_anonce.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + film.video))
-
-        } catch (e: Exception) {
-            Log.e("Error", e.message)
-            e.printStackTrace()
-        }
-
-        addfav_film()
+      }
 
 
     }
+
+
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -97,36 +93,82 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
 
-    fun rateMe(view: View) {
 
-       // data.Films[index].voteAverage.add(rating_movie.rating)
 
-        //film!!.voteAverage.add(rating_movie.rating)
-        //rating_movie.rating = moy(film!!.voteAverage)
-        submit.visibility = View.GONE
-        rateResult.visibility = View.VISIBLE
-       // rate.text = moy(film!!.voteAverage).toString().substring(0,3)
-    }
-
-    fun moy(eval: ArrayList<Float>):Float{
-        var star:Float= 0.0F
-
-        for (value in eval ){
-            star = star + value
-        }
-        star=star/eval.size
-
-        return star;
-
-    }
 
     fun addfav_film() {
         // set the function to add a favoris film
+        println("add fav film ")
         film.fav = true
+       film.comments=fragmentComments.comments
+        println("comments size "+film.comments.size+" "+film.comments)
+        film.associatefilm=fragmentDetail.associate_film
+        println("associate film  size "+film.associatefilm.size+" "+film.associatefilm)
+        film.actors=fragmentDetail.associate_Actors
+        film.room=data.getCinema()
         data.Filmsfav.add(film)
 
 
+
     }
+    private fun handleResponse(movie: Movie) {
+       this.film = movie
+    println("film result title "+film.title)
+        title_movie_detail.text= film!!.title
+        details_movie.text= film!!.genres[0].name +" , "+film!!.genres[1].name
+        directorName_detail.text= film!!.release_date
+       rating_movie.rating = film!!.voteAverage
+               storyLine.text= film!!.info
+       Glide.with(this)
+               .load(film!!.image)
+               .into(pictureMovieDetail)
+
+       film.fav=false
+        if(film!!.fav) movieFavori.isFavorite = true
+
+       /****************************************** Add Video *************************************/
+
+        val mediaController = MediaController(this)
+
+        mediaController.setAnchorView(bande_anonce)
+        bande_anonce.setMediaController(mediaController)
+
+        try {
+            bande_anonce.setVideoURI(Uri.parse( "android.resource://" + getPackageName()+ "/"+ R.raw.video_harry ))
+
+        } catch (e: Exception) {
+            Log.e("Error", e.message)
+            e.printStackTrace()
+        }
+
+       //addfav_film()
+
+       setSupportActionBar(findViewById(R.id.my_toolbar))
+       supportActionBar?.setDisplayHomeAsUpEnabled(true)
+       supportActionBar?.title = film.title
+
+       rateResult.visibility = View.GONE
+
+
+
+       setTitle("Details")
+
+       val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
+        fragmentDetail=DetailsFragment.newInstance(film!!.id)
+         fragmentRoom=RoomsFragment.newInstance();
+         fragmentComments=CommentsFragment.newInstance(film!!.id)
+       pageAdapter.addFragment(fragmentDetail, "DETAILS")
+       pageAdapter.addFragment(fragmentRoom, "ROOMS")
+       pageAdapter.addFragment(fragmentComments, "COMMENTS")
+
+       println("page container")
+       println("data cinema size "+data.getCinema().size)
+       movieContainer.adapter = pageAdapter
+       Movietabs.setupWithViewPager(movieContainer)
+
+    }
+    private fun handleError(error: Throwable) { Log.d("error movie load ", error.localizedMessage) }
+
 
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,15 @@ import com.example.misa.iwatch.entity.Comments
 
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import com.example.misa.iwatch.Repository.IRepository
+import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
+import com.example.misa.iwatch.entity.Movie
+import com.example.misa.iwatch.entity.ReviewResponse
+import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
+import com.example.misa.iwatch.utils.ServiceLocator
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_comments.*
 //import com.sun.deploy.ui.CacheUpdateProgressDialog.dismiss
 import java.util.*
 
@@ -23,26 +33,47 @@ import java.util.*
  */
 class CommentsFragment : Fragment() {
     lateinit var comments:ArrayList<Comments>
+
     lateinit var rv:RecyclerView
+
      var id_image=R.drawable.k
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
 
-         comments = this.arguments?.getSerializable("comment")as ArrayList<Comments>
+         var id = this.arguments?.getInt("id_movie")!!
+        println("id movie comment")
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+
+        val DetailFilmModel =  MoviesDetailViewModel(repo)
+        DetailFilmModel.getreview(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError)
+
         val rootView = inflater.inflate(R.layout.fragment_comments, container, false)
-         rv= rootView.findViewById<RecyclerView>(R.id.recycleViewComments)
-        rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+        rv= rootView.findViewById<RecyclerView>(R.id.recycleViewComments)
 
 
 
-        var adapter = CommentAdapter(comments)
-        rv.adapter = adapter
+        return rootView
+    }
 
-        // Code pour ajouter un commentaire
-        val editText = rootView.findViewById(R.id.addComment) as EditText
-        editText.setOnEditorActionListener() { v, actionId, event ->
+    private fun handleResponse(review: ReviewResponse) {
+        this.comments=review.comments
+        println("comment size "+comments.size)
+
+        this.rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+        var adapter = CommentAdapter(this.comments)
+        this.rv.adapter = adapter
+        this.rv.invalidate();
+
+
+        //val editText = rootView.findViewById(R.id.addComment) as EditText
+
+        addComment.setOnEditorActionListener() { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE){
 
 
@@ -57,18 +88,19 @@ class CommentsFragment : Fragment() {
             }
         }
 
-
-
-        return rootView
     }
+
+    private fun handleError(error: Throwable) { Log.d("error review load ", error.localizedMessage) }
+
+
 
     companion object {
 
-        fun newInstance( comment : ArrayList<Comments>): CommentsFragment {
+        fun newInstance(id_movie: Int): CommentsFragment {
 
             val args = Bundle()
 
-            args.putSerializable("comment", comment)
+            args.putInt("id_movie", id_movie)
 
             val fragment = CommentsFragment()
             fragment.arguments = args

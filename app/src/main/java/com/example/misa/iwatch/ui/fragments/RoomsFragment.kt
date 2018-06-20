@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.entity.Cinema
 import com.example.misa.iwatch.ui.adapters.RoomAdapter
 import com.example.misa.iwatch.entity.Room
+import com.example.misa.iwatch.entity.data
 import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
 
 /**
@@ -20,7 +22,8 @@ class RoomsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val cinema = this.arguments?.getSerializable("rooms") as ArrayList<Room>
+        println("room fragment ")
+        val cinema = data.getCinema();
         val rootView = inflater.inflate(R.layout.fragment_rooms, container, false)
         val rv = rootView.findViewById<RecyclerView>(R.id.recycleViewRooms)
         rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
@@ -36,11 +39,11 @@ class RoomsFragment : Fragment() {
 
     companion object {
 
-        fun newInstance( cinema: ArrayList<Room>): RoomsFragment {
+        fun newInstance( ): RoomsFragment {
 
             val args = Bundle()
 
-            args.putSerializable("rooms", cinema)
+
 
             val fragment = RoomsFragment()
             fragment.arguments = args

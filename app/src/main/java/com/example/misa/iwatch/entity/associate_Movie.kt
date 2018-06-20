@@ -13,8 +13,7 @@ data class associate_Movie(
         @SerializedName("title")
         var title: String,
         @SerializedName("poster_path")
-        var image: String
-        ,
+        var image: String,
 @SerializedName("overview")
 var info : String,
 @SerializedName("vote_average")

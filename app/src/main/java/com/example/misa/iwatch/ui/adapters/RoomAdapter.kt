@@ -15,17 +15,18 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.misa.iwatch.ui.activities.MapsActivity
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.entity.Cinema
 import com.example.misa.iwatch.entity.Room
 import com.google.android.gms.maps.model.LatLng
 
-class RoomAdapter(val cinemaList: ArrayList<Room>): RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
+class RoomAdapter(val cinemaList: ArrayList<Cinema>): RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 
     private var context: Context? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder?.titre?.text = cinemaList[position].name
-        holder?.adress?.text = cinemaList[position].adress
+        holder?.adress?.text = cinemaList[position].address
         holder?.image?.setImageResource(cinemaList[position].image)
 
         holder?.map?.setOnClickListener {

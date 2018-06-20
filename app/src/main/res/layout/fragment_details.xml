@@ -35,51 +35,9 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/realisateur"
-                android:theme="@style/title" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="92dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
 
-                    <LinearLayout
-                        android:id="@+id/btnDetailrealisateur"
-                        android:layout_width="92dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/RealisatorDetailPicture"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/tom_hardy" />
-
-                        <TextView
-                            android:id="@+id/RealisatorDetailName"
-                            android:theme="@style/actorName"
-                            android:gravity="center"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Tom Hardy" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
