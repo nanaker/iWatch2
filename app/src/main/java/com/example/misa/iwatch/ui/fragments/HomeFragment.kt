@@ -25,9 +25,11 @@ import com.example.misa.iwatch.ui.adapters.MoviesAdapter
 import com.example.misa.iwatch.ui.adapters.SeriesAdapter
 import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
 import com.example.misa.iwatch.entity.data.Companion.getSeriesRecent
+import com.example.misa.iwatch.ui.ViewModels.ActorsViewModel
 import com.example.misa.iwatch.ui.ViewModels.MoviesViewModel
 import com.example.misa.iwatch.ui.ViewModels.SeriesViewModel
 import com.example.misa.iwatch.utils.ServiceLocator
+import com.example.misa.iwatch.utils.getViewModel
 
 
 /**
@@ -112,25 +114,5 @@ class HomeFragment: Fragment() {
 
     }
 
-    private fun getViewModel(type:IRepository.Type): ViewModel {
 
-        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val repo = ServiceLocator.instance()
-                        .getRepository(type)
-                @Suppress("UNCHECKED_CAST")
-                return when(type){
-                    IRepository.Type.MOVIE -> MoviesViewModel(repo as MovieRepository) as T
-                    IRepository.Type.SERIES -> SeriesViewModel(repo as SeriesRepository) as T
-                    else -> Unit as T
-                }
-
-            }
-        })[when(type){
-            IRepository.Type.MOVIE -> MoviesViewModel::class.java
-            IRepository.Type.SERIES -> SeriesViewModel::class.java
-            else -> ViewModel::class.java
-        }]
-
-    }
 }

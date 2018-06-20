@@ -18,9 +18,25 @@ class PageKeyedActorsDataSource(tmdbApi: TMDBApi):BaseDataSource<Personnes>(tmdb
 
             override fun onResponse(call: Call<TMDBApi.ListingData<Personnes>>, response: Response<TMDBApi.ListingData<Personnes>>) {
                 if(response.isSuccessful){
+                    lateinit var detailedList:MutableList<Personnes>
                     val items    = response.body()?.results!!
                     val pageNum :Int = response.body()?.page!!.toInt()
 
+                    items.forEach {
+                        tmdbApi.getPersonDetailsById(it.id).enqueue( object :Callback<Personnes>{
+                            override fun onFailure(call: Call<Personnes>?, t: Throwable?) {
+                                networkState.postValue(
+                                        NetworkState.error("error  : ${t?.message}")
+                                )
+                                loadAfter(params,callback)
+                            }
+
+                            override fun onResponse(call: Call<Personnes>?, response: Response<Personnes>?) {
+                                detailedList.add(response?.body()!!)
+                            }
+                        })
+
+                    }
                     callback.onResult(items,(pageNum+1))
                     networkState.postValue(NetworkState.LOADED)
 
@@ -45,11 +61,16 @@ class PageKeyedActorsDataSource(tmdbApi: TMDBApi):BaseDataSource<Personnes>(tmdb
 
             override fun onResponse(call: Call<TMDBApi.ListingData<Personnes>>, response: Response<TMDBApi.ListingData<Personnes>>) {
                 if(response.isSuccessful){
+                     var detailedList:MutableList<Personnes> = mutableListOf<Personnes>()
                     val items    = response.body()?.results!!
                     val pageNum :Int = response.body()?.page!!.toInt()
+                    items.forEach {
+                        val call = tmdbApi.getPersonDetailsById(it.id)
+                        val res  = call.execute()
+                        if (res.isSuccessful)  detailedList.add(res?.body()!!)
 
-
-                    callback.onResult(items,null,pageNum+1)
+                    }
+                    callback.onResult(detailedList,null,pageNum+1)
                     networkState.postValue(NetworkState.LOADED)
 
                 }else{

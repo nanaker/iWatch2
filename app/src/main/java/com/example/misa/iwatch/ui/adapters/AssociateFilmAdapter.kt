@@ -17,7 +17,7 @@ import android.widget.TextView
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
+
 
 class AssociateFilmAdapter(val associateFilmList: ArrayList<Film>): RecyclerView.Adapter<AssociateFilmAdapter.ViewHolder>() {
 
@@ -32,8 +32,8 @@ class AssociateFilmAdapter(val associateFilmList: ArrayList<Film>): RecyclerView
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
-            val films= getMoviesRecent()
-            bundle.putSerializable("film", films[associateFilmList[position].index])
+           // val films= getMoviesRecent()
+           // bundle.putSerializable("film", films[associateFilmList[position].index])
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

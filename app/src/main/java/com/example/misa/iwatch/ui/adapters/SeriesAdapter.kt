@@ -25,7 +25,7 @@ class SeriesAdapter(private val context: Context): PagedListAdapter<Series,Serie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.titre?.text = getItem(position)?.titre
-        Log.d("Series"," item is ${getItem(position)?.titre}")
+        Log.d("SeriesOnAir"," item is ${getItem(position)?.titre}")
         holder?.info?.text = getItem(position)?.info?.take(50)+"..."
         holder?.directeur?.text = getItem(position)?.directeur
         Glide.with(context)

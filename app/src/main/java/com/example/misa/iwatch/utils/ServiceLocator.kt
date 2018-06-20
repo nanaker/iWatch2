@@ -43,7 +43,7 @@ class DefaultServiceLocator: ServiceLocator{
     override fun getRepository(repositoryType: IRepository.Type): IRepository {
        return when(repositoryType){
            IRepository.Type.ACTORS->  ActorsRepository(
-                   webServise = getApi(),
+                   tmdbApi = getApi(),
                    networkExecutor = getNetworkExecutor()
            )
            IRepository.Type.MOVIE->MovieRepository(

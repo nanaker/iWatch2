@@ -8,13 +8,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.fragments.*
 
 import com.google.gson.Gson
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -71,8 +71,9 @@ class MainActivity : AppCompatActivity(){
      class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment? {
+            Log.d("TAB++++++++","position ${position}")
            return when (position){
-                0 ->  HomeFragment()
+                0 -> HomeFragment()
                 1 -> CinemaFragment()
                 2 -> SeriesFragment()
                 3 -> PersonsFragment()
