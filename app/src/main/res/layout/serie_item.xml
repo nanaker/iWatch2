@@ -48,11 +48,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/director"
+                        android:id="@+id/datesortieSerie"
                         android:theme="@style/director"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/directeur"/>
+                        android:text="@string/date"/>
 
                     <TextView
                         android:id="@+id/directorSerie"

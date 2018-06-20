@@ -156,9 +156,12 @@ class MovieDetailActivity : AppCompatActivity() {
         directorName_detail.text= film!!.release_date
        rating_movie.rating = film!!.voteAverage
                storyLine.text= film!!.info
+        if (film.image!=null){
        Glide.with(this)
                .load(film!!.image)
-               .into(pictureMovieDetail)
+               .into(pictureMovieDetail)}
+        rate.text= film.voteAverage.toString()
+        rating_movie.rating=film.voteAverage
 
        film.fav=false
         if(film!!.fav) movieFavori.isFavorite = true
@@ -184,7 +187,7 @@ class MovieDetailActivity : AppCompatActivity() {
        supportActionBar?.setDisplayHomeAsUpEnabled(true)
        supportActionBar?.title = film.title
 
-       rateResult.visibility = View.GONE
+
 
 
 
@@ -193,7 +196,7 @@ class MovieDetailActivity : AppCompatActivity() {
        val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
         fragmentDetail=DetailsFragment.newInstance(film!!.id)
          fragmentRoom=RoomsFragment.newInstance();
-         fragmentComments=CommentsFragment.newInstance(film!!.id)
+         fragmentComments=CommentsFragment.newInstance(film!!.id,1)
        pageAdapter.addFragment(fragmentDetail, "DETAILS")
        pageAdapter.addFragment(fragmentRoom, "ROOMS")
        pageAdapter.addFragment(fragmentComments, "COMMENTS")

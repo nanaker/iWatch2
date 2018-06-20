@@ -22,19 +22,20 @@ class SaisonsFragment : Fragment() {
         val rv = rootView.findViewById<RecyclerView>(R.id.recycleViewSaisons)
         rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         val saisons = this.arguments?.getSerializable("saison")as ArrayList<Saisons>
+        val  id=this.arguments?.getInt("id_serie")
 
-
-        var adapter = SaisonsAdapter(saisons)
+        var adapter = SaisonsAdapter(saisons, id!!)
         rv.adapter = adapter
         return rootView
     }
     companion object {
 
-        fun newInstance( saisons : ArrayList<Saisons>): SaisonsFragment {
+        fun newInstance( saisons : ArrayList<Saisons>,id:Int): SaisonsFragment {
 
             val args = Bundle()
 
             args.putSerializable("saison", saisons)
+            args.putInt("id_serie",id)
 
             val fragment = SaisonsFragment()
             fragment.arguments = args

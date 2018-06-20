@@ -57,7 +57,7 @@
                     android:layout_marginTop="-32dp"
                     android:elevation="8dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/guardians_galaxy" />
+                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,82 +68,69 @@
                         android:id="@+id/title_saison_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Guardians of the Galaxy"
+                        android:text=""
                         android:theme="@style/title" />
-
-                    <TextView
-                        android:id="@+id/details_saison"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Action, Adventure, Fantasy"
-                        android:theme="@style/details" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/nb_saisontitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/numSaison"
+                            android:theme="@style/director" />
+
+                        <TextView
+                            android:id="@+id/nbsaison"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:theme="@style/directorName" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/epis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nbepisodes"
+                            android:theme="@style/director" />
+
+                        <TextView
+                            android:id="@+id/nbeisodessaisosn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:theme="@style/directorName" />
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp">
+                        android:orientation="horizontal">
 
-                        <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                            android:id="@+id/rating_saison"
+                        <TextView
+                            android:id="@+id/dateSortie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:padding="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:clickable="true"
-                            app:srb_starSize="16dp"
+                            android:text="@string/date"
+                            android:theme="@style/director" />
 
-                            app:srb_numberOfStars="5"
-                            app:srb_rating="3"
-                            app:srb_stepSize="0.5"
-                            app:srb_starBorderWidth="1"
-                            app:srb_borderColor="@color/stars"
-                            app:srb_drawBorderEnabled="false"
-                            app:srb_starBackgroundColor="@color/stars"
-                            app:srb_fillColor="@color/bordo"/>
-
-                        <Button
-                            android:id="@+id/submit_saison"
-                            android:layout_below="@+id/ratingbutton"
-                            android:theme="@style/ButtonRate"
-                            android:layout_width="64dp"
-                            android:layout_height="32dp"
-                            android:layout_marginTop="14dp"
-                            android:onClick="rateMe_saison"
-                            android:text="@string/evaluer"
-                            />
-
-
-
-                        <LinearLayout
-                            android:id="@+id/rateResult_saison"
+                        <TextView
+                            android:id="@+id/dateOnAir"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginLeft="4dp">
-
-                            <TextView
-                                android:id="@+id/rate_saison"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="8.9"
-                                android:textColor="#ffffff"
-                                android:textSize="9pt"/>
-                            <TextView
-                                android:theme="@style/directorName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="-2dp"
-                                android:layout_marginLeft="1dp"
-                                android:text="/5"/>
-
-                        </LinearLayout>
-
-
-
+                            android:text=""
+                            android:theme="@style/directorName" />
                     </LinearLayout>
+
+
+
 
                 </LinearLayout>
             </LinearLayout>
@@ -160,7 +147,7 @@
                 android:id="@+id/storyLine_saison"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Before she was Wonder Woman, she was Diana, princess of the Amazons, trained warrior. When a pilot crashes and tells of conflict in the outside world, she leaves home to fight a war, discovering her full powers and true destiny."
+                android:text=" "
                 android:textColor="#B3ffffff"
                 android:theme="@style/details" />
 
@@ -184,11 +171,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/acteur" />
 
-                <android.support.design.widget.TabItem
-                    android:id="@+id/Comments_saison"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/commentaire" />
+
             </android.support.design.widget.TabLayout>
 
             <android.support.v4.view.ViewPager

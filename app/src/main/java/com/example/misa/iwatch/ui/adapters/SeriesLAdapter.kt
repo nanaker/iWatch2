@@ -12,7 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.ui.activities.SerieDetailActivity
 import com.example.misa.iwatch.entity.Series
 import com.example.misa.iwatch.entity.associate_series
@@ -21,18 +23,20 @@ class SeriesLAdapter(val serieList: ArrayList<associate_series>): RecyclerView.A
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.titre?.text = serieList[position].nom
-        holder?.info?.text = serieList[position].info
-      //  holder?.directeur?.text = serieList[position].directeu
-        //holder?.image?.setImageResource(serieList[position].image)
-        holder?.grade?.text=serieList[position].voteAverage.toString()
+        holder?.info?.text = serieList[position].info.take(50)+"..."
+       holder?.directeur?.text = serieList[position].date
+        println("image = "+serieList[position]?.image)
+        Glide.with(this!!.context!!)
+                .load(WebServiceFactory.IMAGE_BASE_URL +serieList[position]?.image)
+                .into(holder?.image)
+        holder?.grade?.text=serieList[position].voteAverage.toString().substring(0,3)
 
 
        holder?.details!!.setOnClickListener {
 
            val intent = Intent(context, SerieDetailActivity::class.java)
            val bundle = Bundle()
-           bundle.putSerializable("serie", serieList[position].id)
-           bundle.putInt("index_serie", position)
+           bundle.putInt("id_serie", serieList[position].id)
            intent.putExtras(bundle)
 
            context!!.startActivity(intent)

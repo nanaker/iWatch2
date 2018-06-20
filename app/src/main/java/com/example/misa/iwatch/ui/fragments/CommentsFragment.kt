@@ -17,9 +17,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
+import com.example.misa.iwatch.Repository.sieries.SerieDetailRepository
 import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.entity.ReviewResponse
 import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
+import com.example.misa.iwatch.ui.ViewModels.SeriesDetailViewModel
 import com.example.misa.iwatch.utils.ServiceLocator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -43,15 +45,36 @@ class CommentsFragment : Fragment() {
 
 
          var id = this.arguments?.getInt("id_movie")!!
-        println("id movie comment")
-        val repo = ServiceLocator.instance()
-                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+        var type= this.arguments?.getInt("type")!!
 
-        val DetailFilmModel =  MoviesDetailViewModel(repo)
-        DetailFilmModel.getreview(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError)
+        when(type){
+            1-> {
+                val repo = ServiceLocator.instance()
+                        .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+
+                val DetailFilmModel =  MoviesDetailViewModel(repo)
+                DetailFilmModel.getreview(id)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(this::handleResponse, this::handleError)
+
+            }
+            2-> {
+                val repo = ServiceLocator.instance()
+                        .getRepository(IRepository.Type.DETAILSERIE) as SerieDetailRepository
+
+                val DetailSerieModel =  SeriesDetailViewModel(repo)
+                DetailSerieModel.getreview(id)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(this::handleResponse, this::handleError)
+
+            }
+            //3->
+        }
+
+        println("id movie comment")
+
 
         val rootView = inflater.inflate(R.layout.fragment_comments, container, false)
         rv= rootView.findViewById<RecyclerView>(R.id.recycleViewComments)
@@ -96,11 +119,12 @@ class CommentsFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(id_movie: Int): CommentsFragment {
+        fun newInstance(id_movie: Int,type:Int): CommentsFragment {
 
             val args = Bundle()
 
             args.putInt("id_movie", id_movie)
+            args.putInt("type", type)
 
             val fragment = CommentsFragment()
             fragment.arguments = args

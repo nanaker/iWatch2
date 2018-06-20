@@ -4,6 +4,10 @@ import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
 import com.example.misa.iwatch.Repository.actors.ActorsRepository
 import com.example.misa.iwatch.Repository.Movies.MovieRepository
+import com.example.misa.iwatch.Repository.actors.ActorDetailRepository
+import com.example.misa.iwatch.Repository.sieries.EpisodesDetailRepository
+import com.example.misa.iwatch.Repository.sieries.SaisonDetailRepository
+import com.example.misa.iwatch.Repository.sieries.SerieDetailRepository
 import com.example.misa.iwatch.Repository.sieries.SeriesRepository
 import com.example.misa.iwatch.api.TMDBApi
 import com.example.misa.iwatch.api.WebServiceFactory
@@ -64,6 +68,18 @@ class DefaultServiceLocator: ServiceLocator{
                    networkExecutor = getNetworkExecutor()
            )
            IRepository.Type.DETAILMOVIE -> MovieDetailRepository(
+                   tmdbApi= getApi2()
+           )
+           IRepository.Type.DETAILSERIE -> SerieDetailRepository(
+                   tmdbApi= getApi2()
+           )
+           IRepository.Type.DETAILPERSONNE -> ActorDetailRepository(
+                   tmdbApi= getApi2()
+           )
+           IRepository.Type.DETAILSAISON-> SaisonDetailRepository(
+                   tmdbApi= getApi2()
+           )
+           IRepository.Type.DETAILEPISODE -> EpisodesDetailRepository(
                    tmdbApi= getApi2()
            )
        }

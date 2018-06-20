@@ -33,6 +33,12 @@
     <string name="title_activity_maps">Map</string>
     <string name="api_key">94327dc22a17d2c12b806d241682cd96</string>
     <string name="date">Date de sortie</string>
+    <string name="nbepisodes">Nombre d\'Episodes</string>
+    <string name="nbsais">Nombre de Saisons</string>
+    <string name="numSaison">Numéro de saison</string>
+    <string name="numep">Numéro de l\'episode</string>
+    <string name="evalueract">Evaluer l\'acteur</string>
+    <string name="pop">Popularité :</string>
 
 
 </resources>

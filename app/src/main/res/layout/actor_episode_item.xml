@@ -75,17 +75,7 @@
             android:src="@drawable/tom_hardyy"
             android:elevation="2dp"/>
 
-        <Button
-            android:id="@+id/grade"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
 
-            android:layout_alignStart="@+id/pictureActor"
-            android:layout_alignTop="@+id/pictureActor"
-            android:layout_marginStart="97dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/round_button"
-            android:text="8.5" />
 
     </RelativeLayout>
 
