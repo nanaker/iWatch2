@@ -3,7 +3,10 @@ package com.example.misa.iwatch.ui.activities
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,24 +22,29 @@ import android.widget.MediaController
 import com.bumptech.glide.Glide
 import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
-import kotlin.collections.ArrayList
 import com.example.misa.iwatch.entity.data
+import com.example.misa.iwatch.room.filmdb.filmDataBase
+import com.example.misa.iwatch.room.filmdb.modal.film
 import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
 import com.example.misa.iwatch.utils.ServiceLocator
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.lang.ref.WeakReference
 
 
 class MovieDetailActivity : AppCompatActivity() {
 
-   lateinit var film: Movie
-     var id: Int = 0
+    lateinit var film: Movie
+    var id: Int = 0
 
-   lateinit var fragmentDetail:DetailsFragment
+    lateinit var fragmentDetail:DetailsFragment
     lateinit var fragmentRoom:RoomsFragment
     lateinit var fragmentComments:CommentsFragment
+
+    // variables for room data base
+    private var mDb: filmDataBase ? = null
+    private var filmFav: film? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,24 +67,56 @@ class MovieDetailActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError)
 
+        mDb = filmDataBase.getInstance(this)
+
       movieFavori.setOnClickListener(){
+          filmFav = film(film.id, film.title, film.info, film.release_date,
+                  "", film.voteAverage, "")
           println("add fav film ")
-          movieFavori.isFavorite=true
+          movieFavori.isFavorite = true
           film.fav = true
-          film.comments=fragmentComments.comments
+          film.comments = fragmentComments.comments
           println("comments size "+film.comments.size+" "+film.comments)
-          film.associatefilm=fragmentDetail.associate_film
+          film.associatefilm = fragmentDetail.associate_film
           println("associate film  size "+film.associatefilm.size+" "+film.associatefilm)
-          film.actors=fragmentDetail.associate_Actors
-          film.room=data.getCinema()
+          film.actors = fragmentDetail.associate_Actors
+          film.room = data.getCinema()
           data.Filmsfav.add(film)
 
       }
 
-
     }
 
+    private fun setResult(film: film, flag: Int) {
+        setResult(flag, Intent().putExtra("filmfav", film.id))
+        finish()
+    }
 
+    private class InsertTask// only retain a weak reference to the activity
+    internal constructor(context: MovieDetailActivity, private val film: film) : AsyncTask<Void, Void, Boolean>() {
+
+        private val activityReference: WeakReference<MovieDetailActivity>
+
+        init {
+            activityReference = WeakReference<MovieDetailActivity>(context)
+        }
+
+        // doInBackground methods runs on a worker thread
+        override fun doInBackground(vararg objs: Void): Boolean? {
+            // retrieve auto incremented note id
+            val j = activityReference.get()!!.mDb!!.getFilmDao().addFilmFav(film)
+            Log.e("ID ", "doInBackground: $j")
+            return true
+        }
+
+        // onPostExecute runs on main thread
+        override fun onPostExecute(bool: Boolean?) {
+            if (bool!!) {
+                activityReference.get()!!.setResult(film, 1)
+                activityReference.get()!!.finish()
+            }
+        }
+    }
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -93,19 +133,16 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
 
-
-
-
     fun addfav_film() {
         // set the function to add a favoris film
         println("add fav film ")
         film.fav = true
-       film.comments=fragmentComments.comments
-        println("comments size "+film.comments.size+" "+film.comments)
-        film.associatefilm=fragmentDetail.associate_film
-        println("associate film  size "+film.associatefilm.size+" "+film.associatefilm)
-        film.actors=fragmentDetail.associate_Actors
-        film.room=data.getCinema()
+        film.comments = fragmentComments.comments
+        println("comments size " + film.comments.size + " " + film.comments)
+        film.associatefilm = fragmentDetail.associate_film
+        println("associate film  size " + film.associatefilm.size + " " + film.associatefilm)
+        film.actors = fragmentDetail.associate_Actors
+        film.room = data.getCinema()
         data.Filmsfav.add(film)
 
 
