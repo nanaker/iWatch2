@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.misa.iwatch.Repository.*
-import com.example.misa.iwatch.Repository.Moviess.PageKeyedMoviesDataSource
+
 import com.example.misa.iwatch.api.TMDBApi
 import com.example.misa.iwatch.entity.*
 import org.w3c.dom.Comment
@@ -38,10 +38,12 @@ class MovieDetailRepository (val tmdbApi: TMDBApi): IRepository {
         return tmdbApi.getMovieDetailsById(id)}
     fun getMovieReview(id: Int): Observable<ReviewResponse> {
         println("calling movie detail repository review")
-        return tmdbApi.getMovieUserReview(id)}
+        return tmdbApi.getMovieUserReview(id)
+    }
     fun getMovieSimilar(id: Int): Observable<SimilarMovieResponse> {
         println("calling movie detail repository similar movies ")
-        return tmdbApi.getMovieSimilar(id,1)}
+        return tmdbApi.getMovieSimilar(id,1)
+    }
     fun getCreditMovie(id: Int): Observable<CreditsResponse> {
         println("calling movie detail repository credits ")
         return tmdbApi.getcredits(id)}

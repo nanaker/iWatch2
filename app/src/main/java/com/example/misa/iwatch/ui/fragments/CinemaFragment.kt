@@ -22,7 +22,6 @@ import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.ui.adapters.CinemaAdapter
 import com.example.misa.iwatch.ui.adapters.MoviesAdapter
 import com.example.misa.iwatch.entity.data.Companion.getCinema
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
 import com.example.misa.iwatch.ui.ViewModels.MoviesViewModel
 import com.example.misa.iwatch.utils.getViewModel
 

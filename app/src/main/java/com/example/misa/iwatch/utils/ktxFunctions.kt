@@ -24,6 +24,7 @@ fun Fragment.getViewModel(type: IRepository.Type): ViewModel {
                 IRepository.Type.MOVIE -> MoviesViewModel(repo as MovieRepository) as T
                 IRepository.Type.SERIES -> SeriesViewModel(repo as SeriesRepository) as T
                 IRepository.Type.ACTORS -> ActorsViewModel(repo as ActorsRepository) as T
+                else -> ActorsViewModel(repo as ActorsRepository) as T
             }
 
         }
@@ -31,6 +32,7 @@ fun Fragment.getViewModel(type: IRepository.Type): ViewModel {
         IRepository.Type.MOVIE -> MoviesViewModel::class.java
         IRepository.Type.SERIES -> SeriesViewModel::class.java
         IRepository.Type.ACTORS -> ActorsViewModel::class.java
+        else ->  ActorsViewModel::class.java
     }]
 
 }

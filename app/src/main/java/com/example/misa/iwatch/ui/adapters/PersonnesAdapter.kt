@@ -9,10 +9,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.activities.PersonDetailActivity
 import com.example.misa.iwatch.entity.Personnes
@@ -20,19 +22,16 @@ import com.example.misa.iwatch.entity.Personnes
 class PersonnesAdapter(val context: Context): PagedListAdapter<Personnes,PersonnesAdapter.ViewHolder>(Personnes.DIFF_CALL) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-<<<<<<< HEAD
+        Log.d("TAG",getItem(position).toString())
         holder?.nom?.text = getItem(position)?.nom
         holder?.dateB?.text = getItem(position)?.dateNaissance
         holder?.placeB?.text = getItem(position)?.LieuNiassance
-       // holder?.image?.setImageResource(actorList[position].image)
-       // holder?.grade?.text =  moy(actorList[position].eval).toString().substring(0,3)
-=======
-        holder?.nom?.text = actorList[position].nom
-        holder?.dateB?.text = actorList[position].dateNaissance
-        holder?.placeB?.text = actorList[position].LieuNiassance
-      //  holder?.image?.setImageResource(actorList[position].image)
-        holder?.grade?.text = actorList[position].eval.toString()
->>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
+        Log.d("TAG",getItem(position)?.image)
+        Glide.with(context)
+                .load(getItem(position)?.image)
+                .into(holder?.image)
+        holder?.grade.text = getItem(position)?.eval.toString().substring(0,2)
+
 
 
        holder?.details!!.setOnClickListener {
@@ -42,7 +41,7 @@ class PersonnesAdapter(val context: Context): PagedListAdapter<Personnes,Personn
            val intent = Intent(context, PersonDetailActivity::class.java)
            val bundle = Bundle()
 
-           bundle.putSerializable("personne", getItem(position))
+           bundle.putSerializable("id_personne", getItem(position)?.id)
            intent.putExtras(bundle)
 
            context!!.startActivity(intent)

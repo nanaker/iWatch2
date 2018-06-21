@@ -15,7 +15,6 @@ import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.entity.Series
 import com.example.misa.iwatch.ui.adapters.SeriesAdapter
-import com.example.misa.iwatch.entity.data.Companion.getSeriesRecent
 import com.example.misa.iwatch.ui.ViewModels.MoviesViewModel
 import com.example.misa.iwatch.ui.ViewModels.SeriesViewModel
 import com.example.misa.iwatch.ui.adapters.MoviesAdapter

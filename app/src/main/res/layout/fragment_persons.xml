@@ -12,28 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="24dp">
-
-            <Button
-                android:id="@+id/btnActors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/acteur"
-                android:theme="@style/Button" />
-
-            <Button
-                android:id="@+id/btnRealisators"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:text="@string/realisateur"
-                android:theme="@style/Button" />
-        </LinearLayout>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/RecycleViewPersonnes"
             android:layout_width="match_parent"

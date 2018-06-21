@@ -37,12 +37,8 @@ class AssociateFilmAdapter(val associateFilmList: ArrayList<associate_Movie>): R
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
-<<<<<<< HEAD
-           // val films= getMoviesRecent()
-           // bundle.putSerializable("film", films[associateFilmList[position].index])
-=======
+
             bundle.putInt("id_movie", associateFilmList[position].id)
->>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

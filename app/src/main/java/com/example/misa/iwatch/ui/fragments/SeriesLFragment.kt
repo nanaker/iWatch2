@@ -17,7 +17,6 @@ import com.example.misa.iwatch.ui.adapters.SeriesLAdapter
 import com.example.misa.iwatch.entity.Series
 import com.example.misa.iwatch.entity.SimilarSerieResponse
 import com.example.misa.iwatch.entity.associate_series
-import com.example.misa.iwatch.entity.data.Companion.getSeriesRecent
 import com.example.misa.iwatch.ui.ViewModels.SeriesDetailViewModel
 import com.example.misa.iwatch.ui.adapters.CommentAdapter
 import com.example.misa.iwatch.utils.ServiceLocator

@@ -35,7 +35,6 @@ class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,Movies
         Glide.with(context)
                 .load(getItem(position)?.image)
                 .into(holder?.image)
-        //holder?.image?.setImageResource(getItem(position).image)
        holder?.grade?.text =  getItem(position)?.voteAverage.toString().substring(0,3)
 
 
