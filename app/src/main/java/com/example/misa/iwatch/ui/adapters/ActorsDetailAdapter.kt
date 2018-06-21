@@ -14,21 +14,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory.Companion.IMAGE_BASE_URL
 import com.example.misa.iwatch.ui.activities.PersonDetailActivity
 import com.example.misa.iwatch.entity.Personnes
+import com.example.misa.iwatch.entity.associate_Actors
 
-class ActorsDetailAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapter<ActorsDetailAdapter.ViewHolder>() {
+class ActorsDetailAdapter(val actorList: ArrayList<associate_Actors>): RecyclerView.Adapter<ActorsDetailAdapter.ViewHolder>() {
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.nom?.text = actorList[position].nom
-        holder?.image?.setImageResource(actorList[position].image)
+        Glide.with(this!!.context!!)
+                .load(IMAGE_BASE_URL+actorList[position].image)
+                .into(holder?.image)
+      //  holder?.image?.setImageResource(actorList[position].image)
         holder?.details?.setOnClickListener {
 
             val intent = Intent(context, PersonDetailActivity::class.java)
             val bundle = Bundle()
 
-            bundle.putSerializable("personne", actorList[position])
+            bundle.putInt("id_personne", actorList[position].id)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

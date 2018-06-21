@@ -14,26 +14,35 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory.Companion.IMAGE_BASE_URL
 import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
 
 
-class AssociateFilmAdapter(val associateFilmList: ArrayList<Film>): RecyclerView.Adapter<AssociateFilmAdapter.ViewHolder>() {
+class AssociateFilmAdapter(val associateFilmList: ArrayList<associate_Movie>): RecyclerView.Adapter<AssociateFilmAdapter.ViewHolder>() {
 
     private var context: Context? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder?.name?.text = associateFilmList[position].titre
-        holder?.image?.setImageResource(associateFilmList[position].image)
+        holder?.name?.text = associateFilmList[position].title
+        Glide.with(this!!.context!!)
+                .load(IMAGE_BASE_URL+associateFilmList[position].image)
+                .into(holder?.image)
+       // holder?.image?.setImageResource(associateFilmList[position].image)
 
         holder?.detail?.setOnClickListener {
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
+<<<<<<< HEAD
            // val films= getMoviesRecent()
            // bundle.putSerializable("film", films[associateFilmList[position].index])
+=======
+            bundle.putInt("id_movie", associateFilmList[position].id)
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

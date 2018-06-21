@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.MediaController
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.ui.adapters.MovieSectionsPageAdapter
 import com.example.misa.iwatch.entity.Episode
 import com.example.misa.iwatch.ui.fragments.CommentsFragment
@@ -30,8 +32,17 @@ class EpisodeDetailActivity : AppCompatActivity() {
         episode = bundle!!.getSerializable("episode") as Episode
 
         setTitle(episode.nom)
+        title_episode.text=episode.nom
         storyLine_eposide.text=episode.storyline
-        rateResult_episode.visibility = View.GONE
+        numepisode.text=episode.nb_episode.toString()
+        datesortieEpisodedetail.text=episode.date
+        rateepisode.text=episode.eval.toString().substring(0,3)
+        rating_episode.rating=episode.eval
+        if (episode.image!=null){
+            Glide.with(this)
+                    .load(WebServiceFactory.IMAGE_BASE_URL+episode!!.image)
+                    .into(pictureEpisodeDetail)}
+
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -46,7 +57,7 @@ class EpisodeDetailActivity : AppCompatActivity() {
         bande_annonce_episode.setMediaController(mediaController)
 
         try {
-            bande_annonce_episode.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + episode.video))
+            bande_annonce_episode.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + R.raw.video_harry))
 
         } catch (e: Exception) {
             Log.e("Error", e.message)
@@ -56,12 +67,11 @@ class EpisodeDetailActivity : AppCompatActivity() {
 
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
 
-        pageAdapter.addFragment(DiffusionFragment.newInstance(episode!!.diffusion), "DIFFUSION")
-        pageAdapter.addFragment(CommentsFragment.newInstance(episode!!.comments), "COMMENTS")
 
 
-        episodeContainer.adapter = pageAdapter
-        Episodetabs.setupWithViewPager( episodeContainer)
+
+
+
 
 
 
@@ -74,28 +84,9 @@ class EpisodeDetailActivity : AppCompatActivity() {
         }
         return true
     }
-    fun rateMe_episode(view: View) {
-
-        episode!!.eval.add(rating_episode.rating)
-        rating_episode.rating=moy(episode!!.eval)
-        submit_episode.visibility= View.GONE
 
 
-        rateResult_episode.visibility = View.VISIBLE
-        rate_episode.text = moy(episode!!.eval).toString().substring(0,3)
-    }
 
-    fun moy(eval: ArrayList<Float>):Float{
-        var star:Float= 0.0F
-
-        for (value in eval ){
-            star=star+value
-        }
-        star=star/eval.size
-
-        return star;
-
-    }
 
 
 }

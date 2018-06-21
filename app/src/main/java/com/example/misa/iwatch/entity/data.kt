@@ -23,22 +23,43 @@ class data {
 
 
 
+<<<<<<< HEAD
 
     fun getMoviesRecent(): ArrayList<Movie> {
 
         return ArrayList()
 
     }
+=======
+        fun getMoviesRecent(): ArrayList<Movie> {
+
+            return this.Films
+        }
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
 
         fun getSeriesRecent(): ArrayList<Series> {
 
             return ArrayList()
 
+<<<<<<< HEAD
         }
+=======
+
+            return Series
+        }
+
+        fun getActors(): ArrayList<Personnes> {
+
+
+            return Acteurs
+        }
+
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
         fun getRealisators(): ArrayList<Personnes> {
 
             return ArrayList()
 
+<<<<<<< HEAD
         }
            fun getActors(): ArrayList<Personnes> {
 
@@ -46,6 +67,12 @@ class data {
 
           }
 
+=======
+
+
+            return Realisateurs
+        }
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
 
         fun getCinema(): ArrayList<Cinema> {
 

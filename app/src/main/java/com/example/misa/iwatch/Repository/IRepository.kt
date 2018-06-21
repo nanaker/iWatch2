@@ -6,6 +6,11 @@ interface IRepository{
   enum class Type{
      ACTORS,
      MOVIE,
-     SERIES
+     SERIES,
+      DETAILMOVIE,
+      DETAILSERIE,
+      DETAILPERSONNE,
+      DETAILSAISON,
+      DETAILEPISODE
  }
 }

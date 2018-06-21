@@ -42,10 +42,10 @@
             </FrameLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="32dp">
+                android:layout_marginTop="28dp">
 
                 <ImageView
                     android:id="@+id/pictureSerie"
@@ -55,7 +55,7 @@
                     android:layout_marginTop="-32dp"
                     android:elevation="8dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/guardians_galaxy" />
+                   />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,14 +66,14 @@
                         android:id="@+id/title_serie_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Guardians of the Galaxy"
+                        android:text=""
                         android:theme="@style/title" />
 
                     <TextView
                         android:id="@+id/details_serie"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Action, Adventure, Fantasy"
+                        android:text=""
                         android:theme="@style/details" />
 
                     <LinearLayout
@@ -85,34 +85,36 @@
                             android:id="@+id/director"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/directeur"
+                            android:text="@string/date"
                             android:theme="@style/director" />
 
                         <TextView
                             android:id="@+id/directorName_serie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="James Gunn"
-                            android:theme="@style/directorName" />
+                            android:text=""
+                            android:theme="@style/directorName"
+                            android:visibility="visible" />
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="16dp">
+                        android:layout_marginTop="12dp">
 
                         <com.iarcuschin.simpleratingbar.SimpleRatingBar
                             android:id="@+id/rating_serie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:padding="16dp"
-                            android:layout_marginBottom="16dp"
+                            android:layout_marginTop="0dp"
+                            android:padding="12dp"
+                            android:layout_marginBottom="1dp"
                             android:clickable="true"
-                            app:srb_starSize="16dp"
+                            app:srb_starSize="12dp"
 
-                            app:srb_numberOfStars="5"
+                            app:srb_numberOfStars="10"
                             app:srb_rating="3"
                             app:srb_stepSize="0.5"
                             app:srb_starBorderWidth="1"
@@ -121,15 +123,7 @@
                             app:srb_starBackgroundColor="@color/stars"
                             app:srb_fillColor="@color/bordo"/>
 
-                        <Button
-                            android:id="@+id/submit_rate_serie"
-                            android:layout_below="@+id/ratingbutton"
-                            android:theme="@style/ButtonRate"
-                            android:layout_width="64dp"
-                            android:layout_height="32dp"
-                            android:onClick="rateMe_serie"
-                            android:text="Evaluer"
-                            />
+
 
                         <LinearLayout
                             android:id="@+id/rateResultSerie"
@@ -142,16 +136,18 @@
                                 android:id="@+id/rateSerie"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="8.9"
+                                android:text=""
                                 android:textColor="#ffffff"
                                 android:textSize="9pt"/>
+
                             <TextView
-                                android:theme="@style/directorName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="-2dp"
                                 android:layout_marginLeft="1dp"
-                                android:text="/5"/>
+                                android:layout_marginTop="-2dp"
+                                android:text="/10"
+                                android:theme="@style/directorName"
+                                android:visibility="visible" />
 
                         </LinearLayout>
 
@@ -171,7 +167,44 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/epis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nbepisodes"
+                    android:theme="@style/director" />
+
+                <TextView
+                    android:id="@+id/nbeisodes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:theme="@style/directorName" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nbsais"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nbsais"
+                    android:theme="@style/director" />
+
+                <TextView
+                    android:id="@+id/nbsaisons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:theme="@style/directorName" />
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -183,7 +216,7 @@
                 android:id="@+id/storyLine_serie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Before she was Wonder Woman, she was Diana, princess of the Amazons, trained warrior. When a pilot crashes and tells of conflict in the outside world, she leaves home to fight a war, discovering her full powers and true destiny."
+                android:text=""
                 android:textColor="#B3ffffff"
                 android:theme="@style/details" />
 

@@ -7,18 +7,28 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.MediaController
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.Repository.IRepository
+import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
+import com.example.misa.iwatch.Repository.sieries.SerieDetailRepository
+import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.ui.adapters.MovieSectionsPageAdapter
 import com.example.misa.iwatch.entity.Series
 import com.example.misa.iwatch.entity.data
+import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
+import com.example.misa.iwatch.ui.ViewModels.SeriesDetailViewModel
 import com.example.misa.iwatch.ui.fragments.*
+import com.example.misa.iwatch.utils.ServiceLocator
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.activity_serie_detail.*
 import java.util.ArrayList
 
 class SerieDetailActivity : AppCompatActivity() {
     lateinit var serie: Series
-    var index:Int=0
+    var id: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,22 +36,45 @@ class SerieDetailActivity : AppCompatActivity() {
         val intent = this.intent
         val bundle = intent.extras
 
-         serie = bundle!!.getSerializable("serie") as Series
-        index=bundle!!.getInt("index_serie")
+
+        id=bundle!!.getInt("id_serie")
+        println("movie id activity "+id)
+
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILSERIE) as SerieDetailRepository
+
+        val DetailSerieModel =  SeriesDetailViewModel(repo)
+        DetailSerieModel.getserie(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError)
 
         //pictureSerie.setImageResource(serie!!.image)
+
+
+    }
+    private fun handleResponse(serie: Series) {
+        this.serie=serie
         title_serie_detail.text= serie!!.titre
-        details_serie.text= serie!!.info
-        directorName_serie.text= serie!!.directeur
-        storyLine_serie.text= serie!!.storyline
+        details_serie.text= serie!!.genres[0].name +" , "+serie!!.genres[1].name
+        directorName_serie.text= serie!!.date
+        nbeisodes.text=serie!!.nbEposides
+        nbsaisons.text=serie!!.nbSaisons
+        storyLine_serie.text= serie!!.info
         if(serie!!.fav) serieFavori.isFavorite = true
+        if (serie.image!=null){
+        Glide.with(this)
+                .load(serie!!.image)
+                .into(pictureSerie)}
+        rateSerie.text=serie.voteAverage.toString()
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = serie.titre
+        println("saisons")
+        println("nb de saisons"+serie.saisons.size)
 
 
-        rateResultSerie.visibility = View.GONE
         rating_serie.rating  = serie!!.voteAverage
 
         setTitle(serie!!.titre)
@@ -53,7 +86,7 @@ class SerieDetailActivity : AppCompatActivity() {
         bande_annonce_serie.setMediaController(mediaController)
 
         try {
-            bande_annonce_serie.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + serie.video))
+            bande_annonce_serie.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + R.raw.video_harry))
 
         } catch (e: Exception) {
             Log.e("Error", e.message)
@@ -63,16 +96,20 @@ class SerieDetailActivity : AppCompatActivity() {
 
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
 
-        pageAdapter.addFragment(SaisonsFragment.newInstance(serie!!.saisons), "SAISONS")
-        pageAdapter.addFragment(SeriesLFragment.newInstance(serie!!.seriesliees), "SERIES LIEES")
-        pageAdapter.addFragment(CommentsFragment.newInstance(serie!!.comments), "COMMENTS")
+        pageAdapter.addFragment(SaisonsFragment.newInstance(serie!!.saisons,serie.id), "SAISONS")
+          pageAdapter.addFragment(SeriesLFragment.newInstance(serie!!.id), "SERIES LIEES")
+           pageAdapter.addFragment(CommentsFragment.newInstance(serie!!.id,2), "COMMENTS")
 
 
         SeriesContainer.adapter = pageAdapter
         Seriestabs.setupWithViewPager(SeriesContainer)
 
-        addfav_serie()
+
     }
+    private fun handleError(error: Throwable) { Log.d("error serie load ", error.localizedMessage) }
+
+
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
@@ -85,17 +122,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
 
 
-    fun moy(eval: ArrayList<Float>):Float{
-        var star:Float= 0.0F
 
-        for (value in eval ){
-            star=star+value
-        }
-        star=star/eval.size
-
-        return star;
-
-    }
 
     fun addfav_serie() {
         serie.fav=true

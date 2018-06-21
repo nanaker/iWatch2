@@ -18,10 +18,16 @@ import java.util.concurrent.Executor
 
 enum class DataSourceKey private constructor(s: String) {
     Persons("Persons"),
+<<<<<<< HEAD
     MoviesOnTheater("MoviesOnTheater"),
     PopularMovies("PopularMovies"),
     SeriesOnAir("SeriesOnAir"),
     PopularSeries("PopularSeries")
+=======
+    Movie("Movie"),
+    MovieDetail("MovieDetail"),
+    Series("Series")
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
 
 
 
@@ -34,11 +40,16 @@ class PagedListDataSourceFactory<T:Any>(val tmdbApi:TMDBApi,val networkExecutor:
         lateinit var source:PageKeyedDataSource<Int,T>
         when(dataSourceKey){
             DataSourceKey.Persons-> source = PageKeyedActorsDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+<<<<<<< HEAD
             DataSourceKey.MoviesOnTheater -> source = MoviesInTheaterPageKeyedDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
             DataSourceKey.PopularMovies -> source = PopularMoviesPageKeyedDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
             DataSourceKey.SeriesOnAir -> source = SeriesOnAirPageKeyDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
             DataSourceKey.PopularSeries -> source = PopularSeriesPageKeyedDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
 
+=======
+            DataSourceKey.Movie -> source = PageKeyedMoviesDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+            DataSourceKey.Series -> source = PageKeyedSeriesDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
 
         }
 

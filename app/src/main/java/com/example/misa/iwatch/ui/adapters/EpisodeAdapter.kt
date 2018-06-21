@@ -12,7 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.ui.activities.EpisodeDetailActivity
 import com.example.misa.iwatch.entity.Episode
 
@@ -20,8 +22,12 @@ class EpisodeAdapter(val episodeList: ArrayList<Episode>): RecyclerView.Adapter<
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.titre?.text =episodeList[position].nom
-        holder?.info?.text = episodeList[position].duree
-        holder?.image?.setImageResource(episodeList[position].image)
+        holder?.info?.text = episodeList[position].date
+        holder?.grade?.text = episodeList[position].eval.toString().substring(0,3)
+        Glide.with(this!!.context!!)
+                .load(WebServiceFactory.IMAGE_BASE_URL +episodeList[position].image)
+                .into(holder?.image)
+
 
 
 
@@ -55,9 +61,10 @@ class EpisodeAdapter(val episodeList: ArrayList<Episode>): RecyclerView.Adapter<
 
 
         val titre = itemView.findViewById<TextView>(R.id.titleepisode)
-        val info = itemView.findViewById<TextView>(R.id.detailepisode)
+        val info = itemView.findViewById<TextView>(R.id.dateOnAirEpisode)
         val image = itemView.findViewById<ImageView>(R.id.pictureEpisode)
         val details = itemView.findViewById<RelativeLayout>(R.id.btnepisodeDetail)
+        val grade = itemView.findViewById<Button>(R.id.gradeEpisode)
 
 
 

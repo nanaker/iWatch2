@@ -2,19 +2,33 @@ package com.example.misa.iwatch.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.MenuItem
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.Repository.IRepository
+import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
+import com.example.misa.iwatch.Repository.actors.ActorDetailRepository
+import com.example.misa.iwatch.api.WebServiceFactory
+import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.ui.adapters.MovieSectionsPageAdapter
 import com.example.misa.iwatch.entity.Personnes
+import com.example.misa.iwatch.ui.ViewModels.ActorDetailViewModel
+import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
 import com.example.misa.iwatch.ui.fragments.CommentsFragment
 import com.example.misa.iwatch.ui.fragments.FilmographieFragment
+import com.example.misa.iwatch.utils.ServiceLocator
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import java.util.ArrayList
 
 class PersonDetailActivity : AppCompatActivity() {
 
     lateinit var personnes: Personnes
+    var id=0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,25 +37,44 @@ class PersonDetailActivity : AppCompatActivity() {
 
         val intent = this.intent
         val bundle = intent.extras
-        personnes = bundle!!.getSerializable("personne") as Personnes
+        id = bundle!!.getInt("id_personne")
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILPERSONNE) as ActorDetailRepository
 
+        val DetailActorModel =  ActorDetailViewModel(repo)
+        DetailActorModel.getactor(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError)
+
+
+
+
+    }
+
+
+    private fun handleResponse(personne: Personnes) {
+        this.personnes=personne
         setTitle(personnes!!.nom)
-        //picturePersonneDetail.setImageResource(personnes!!.image)
+        Glide.with(this)
+                .load(WebServiceFactory.IMAGE_BASE_URL+personne!!.image)
+                .into(picturePersonneDetail)
+
+
         actorNameDetail.text=personnes!!.nom
         birthplace.text=personnes!!.LieuNiassance
         birthdate.text=personnes!!.dateNaissance
         bibliographie.text=personnes!!.bibliographie
-        rating_personne.rating=moy(personnes!!.eval)
-        picturePersonneDetail.setImageResource(personnes!!.image2)
+        poularity.text=personnes.eval.toString()
 
-        rateResultPerson.visibility = View.GONE
+
 
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
 
-        pageAdapter.addFragment(FilmographieFragment.newInstance(personnes!!.filmographie), "FILMOGRAPHIE")
-        pageAdapter.addFragment(CommentsFragment.newInstance(personnes!!.comments), "COMMENTS")
+        pageAdapter.addFragment(FilmographieFragment.newInstance(personnes!!.id), "FILMOGRAPHIE")
 
-       PersonneContainer.adapter = pageAdapter
+
+        PersonneContainer.adapter = pageAdapter
         Personnetabs.setupWithViewPager(PersonneContainer)
 
 
@@ -49,30 +82,11 @@ class PersonDetailActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = personnes.nom
-    }
 
-    fun rateMe_personne(view: View) {
-
-        personnes!!.eval.add(rating_personne.rating)
-        rating_personne.rating=moy(personnes!!.eval)
-        submit_personne.visibility= View.GONE
-        submit_personne.isEnabled=false
-
-        rateResultPerson.visibility = View.VISIBLE
-        ratePerson.text = moy(personnes!!.eval).toString().substring(0,3)
-    }
-
-    fun moy(eval: ArrayList<Float>):Float{
-        var star:Float= 0.0F
-
-        for (value in eval ){
-            star=star+value
-        }
-        star=star/eval.size
-
-        return star;
 
     }
+    private fun handleError(error: Throwable) { Log.d("error personne load ", error.localizedMessage) }
+
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

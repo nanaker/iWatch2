@@ -20,11 +20,19 @@ import com.example.misa.iwatch.entity.Personnes
 class PersonnesAdapter(val context: Context): PagedListAdapter<Personnes,PersonnesAdapter.ViewHolder>(Personnes.DIFF_CALL) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+<<<<<<< HEAD
         holder?.nom?.text = getItem(position)?.nom
         holder?.dateB?.text = getItem(position)?.dateNaissance
         holder?.placeB?.text = getItem(position)?.LieuNiassance
        // holder?.image?.setImageResource(actorList[position].image)
        // holder?.grade?.text =  moy(actorList[position].eval).toString().substring(0,3)
+=======
+        holder?.nom?.text = actorList[position].nom
+        holder?.dateB?.text = actorList[position].dateNaissance
+        holder?.placeB?.text = actorList[position].LieuNiassance
+      //  holder?.image?.setImageResource(actorList[position].image)
+        holder?.grade?.text = actorList[position].eval.toString()
+>>>>>>> 4692160fe9af67cad22d68a86b37f72256743fff
 
 
        holder?.details!!.setOnClickListener {
@@ -56,7 +64,7 @@ class PersonnesAdapter(val context: Context): PagedListAdapter<Personnes,Personn
         val nom = itemView.findViewById<TextView>(R.id.Nom)
         val dateB = itemView.findViewById<TextView>(R.id.dateB)
         val placeB = itemView.findViewById<TextView>(R.id.PlaceB)
-        val image = itemView.findViewById<ImageView>(R.id.picturePersonne)
+        val image = itemView.findViewById<ImageView>(R.id.pictureMovieDetail)
         val details = itemView.findViewById<RelativeLayout>(R.id.btnPersonneDetail)
         val grade= itemView.findViewById<Button>(R.id.grade_personne)
 

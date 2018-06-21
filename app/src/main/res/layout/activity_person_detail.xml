@@ -32,76 +32,81 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/tomm_hardy" />
+                 />
 
             <TextView
                 android:id="@+id/actorNameDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Tom Heady"
+                android:text=""
                 android:theme="@style/title" />
-
-            <TextView
-                android:id="@+id/birthdate"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="-8dp"
-                android:text="Borne in Sept 15th, 1997"
-                android:theme="@style/grade" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/birthplace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Borne in Sept 15th, 1997"
-                android:theme="@style/grade" />
+                <TextView
+                    android:id="@+id/nb_saisontitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_naissance"
+                    android:theme="@style/director" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/birthdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text=""
+                    android:theme="@style/grade" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/grade_now"
-                android:theme="@style/grade" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nb_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lieu_naissance"
+                    android:theme="@style/director" />
+
+                <TextView
+                    android:id="@+id/birthplace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text=""
+                    android:theme="@style/grade" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pop"
+                    android:theme="@style/director" />
+
+                <TextView
+                    android:id="@+id/poularity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text=""
+                    android:theme="@style/grade" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                    android:id="@+id/rating_personne"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:layout_marginTop="-8dp"
-                    android:layout_marginBottom="16dp"
-                    android:clickable="true"
-                    app:srb_starSize="16dp"
-
-                    app:srb_numberOfStars="5"
-                    app:srb_rating="3"
-                    app:srb_stepSize="0.5"
-                    app:srb_starBorderWidth="1"
-                    app:srb_borderColor="@color/stars"
-                    app:srb_drawBorderEnabled="false"
-                    app:srb_starBackgroundColor="@color/stars"
-                    app:srb_fillColor="@color/bordo"/>
-
-                <Button
-                    android:id="@+id/submit_personne"
-                    android:layout_width="64dp"
-                    android:layout_height="32dp"
-                    android:layout_below="@+id/ratingbutton"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="3dp"
-                    android:onClick="rateMe_personne"
-                    android:text="@string/evaluer"
-                    android:theme="@style/ButtonRate" />
 
                 <LinearLayout
                     android:id="@+id/rateResultPerson"
@@ -114,16 +119,16 @@
                         android:id="@+id/ratePerson"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="8.9"
+                        android:text=""
                         android:textColor="#ffffff"
                         android:textSize="9pt"/>
-                    <TextView
+                    TextView
                         android:theme="@style/directorName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-2dp"
                         android:layout_marginLeft="1dp"
-                        android:text="/5"/>
+                        android:text="/10"/>
 
                 </LinearLayout>
 
@@ -142,7 +147,7 @@
                 android:id="@+id/bibliographie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Before she was Wonder Woman, she was Diana, princess of the Amazons, trained warrior. When a pilot crashes and tells of conflict in the outside world, she leaves home to fight a war, discovering her full powers and true destiny."
+                android:text=""
                 android:textColor="#B3ffffff"
                 android:theme="@style/details" />
 
@@ -160,11 +165,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/filmo" />
 
-                <android.support.design.widget.TabItem
-                    android:id="@+id/comments_personne"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/commentaire" />
+
             </android.support.design.widget.TabLayout>
 
             <android.support.v4.view.ViewPager
