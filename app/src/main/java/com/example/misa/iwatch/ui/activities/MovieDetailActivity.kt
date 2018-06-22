@@ -341,7 +341,15 @@ class MovieDetailActivity : AppCompatActivity() {
         rating_movie.rating=film.voteAverage
 
        film.fav=false
-        if(film!!.fav) movieFavori.isFavorite = true
+        val filmsfav=filmDbInstance!!.getFilmDao().getFilmFav()
+        for (item in filmsfav){
+            if (item.id==film.id){
+                film.fav=true
+                movieFavori.isFavorite = true
+                break;
+            }
+        }
+
 
        /****************************************** Add Video *************************************/
 
