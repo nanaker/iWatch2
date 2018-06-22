@@ -5,7 +5,6 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import com.example.misa.iwatch.entity.associate_Movie
 import com.example.misa.iwatch.room.DateRoomConverter
 import com.example.misa.iwatch.room.filmdb.dao.filmDao
 import com.example.misa.iwatch.room.filmdb.modal.film
@@ -14,7 +13,7 @@ import com.example.misa.iwatch.room.filmdb.modal.film
  * Created by misa on 6/19/18.
  */
 
-@Database(entities = arrayOf(film::class), version = 1)
+@Database(entities = arrayOf(film::class), version = 2)
 //@TypeConverters(DateRoomConverter::class)
 abstract class filmDataBase : RoomDatabase() {
 

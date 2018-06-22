@@ -10,10 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.example.misa.iwatch.R
-import com.example.misa.iwatch.ui.adapters.CinemaAdapter
-import com.example.misa.iwatch.entity.data
 import com.example.misa.iwatch.room.adapter.FilmFavAdapter
 import com.example.misa.iwatch.room.filmdb.filmDataBase
 import com.example.misa.iwatch.room.filmdb.modal.film
@@ -25,7 +22,7 @@ import java.util.ArrayList
  */
 class FunFragment: Fragment() {
 
-    //private lateinit var textViewMsg: TextView
+
     private  var filmDatabase: filmDataBase? = null
     private lateinit var films: List<film>
     private lateinit var rootView: View
@@ -78,7 +75,6 @@ class FunFragment: Fragment() {
         }
 
         override fun doInBackground(vararg voids: Void): List<film>? {
-            println("hellllllo from background")
             return if (activityReference.get() != null)
                 activityReference.get()!!.filmDatabase!!.getFilmDao().getFilmFav()
             else
@@ -94,7 +90,6 @@ class FunFragment: Fragment() {
 
             remplirMovies(recyclerView, films)
 
-
         }
     }
 
@@ -108,36 +103,7 @@ class FunFragment: Fragment() {
         filmDataBase.destroyInstance()
         super.onDestroy()
     }
-    // fin ROOM
 
-
-    fun remplirMovies(rv:RecyclerView, films: List<film>?){
-
-        rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        val Films = data.getMoviesFav()
-        var adapter = FilmFavAdapter(films!!, context!!)
-       rv.adapter = adapter
-
-    }
-
-    fun remplirSeries(rv:RecyclerView){
-        rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-
-        val Series= data.getSerieFav()
-       // var adapter = SeriesAdapter()
-       // rv.adapter = adapter
-
-    }
-
-    fun remplirRooms(rv:RecyclerView){
-        rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-
-        val Rooms= data.getCinemaFav()
-        var adapter = CinemaAdapter(Rooms)
-        rv.adapter = adapter
-
-
-    }
 
 
 

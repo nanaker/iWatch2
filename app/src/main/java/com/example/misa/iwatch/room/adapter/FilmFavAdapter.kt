@@ -1,11 +1,14 @@
 package com.example.misa.iwatch.room.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.os.Environment
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.room.filmdb.modal.film
@@ -36,6 +39,11 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
         holder.textViewInfo.setText(list[position].info.take(50)+"...")
         holder.textViewDate.setText(list[position].release_date)
         holder.textViewVote.setText(list[position].voteAverage.toString().substring(0,3))
+
+        val photoPath = Environment.getExternalStorageDirectory().toString() + "/"+list[position].id.toString()+".jpg"
+        val bitmap = BitmapFactory.decodeFile(photoPath)
+        holder.imageView.setImageBitmap(bitmap)
+
     }
 
     override fun getItemCount(): Int {
@@ -49,6 +57,7 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
         internal var textViewInfo: TextView
         internal var textViewDate: TextView
         internal var textViewVote: TextView
+        internal var imageView: ImageView
 
         init {
             itemView.setOnClickListener(this)
@@ -56,6 +65,8 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
             textViewInfo = itemView.findViewById(R.id.details)
             textViewDate = itemView.findViewById(R.id.directorName)
             textViewVote = itemView.findViewById(R.id.grade)
+            imageView = itemView.findViewById(R.id.pictureMovieDetail)
+
         }
 
         override fun onClick(view: View) {
@@ -63,7 +74,4 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
         }
     }
 
-    interface OnNoteItemClick {
-        fun onNoteClick(pos: Int)
-    }
 }

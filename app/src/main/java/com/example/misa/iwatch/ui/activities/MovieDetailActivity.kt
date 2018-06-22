@@ -1,10 +1,12 @@
 package com.example.misa.iwatch.ui.activities
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.adapters.MovieSectionsPageAdapter
@@ -14,7 +16,6 @@ import com.example.misa.iwatch.ui.fragments.RoomsFragment
 import com.example.misa.iwatch.entity.Movie
 import android.view.MenuItem
 import android.widget.MediaController
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
@@ -26,7 +27,12 @@ import com.example.misa.iwatch.utils.ServiceLocator
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.io.File
+import java.io.FileOutputStream
 import java.lang.ref.WeakReference
+import java.net.URL
+
+
 
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -70,20 +76,13 @@ class MovieDetailActivity : AppCompatActivity() {
 
           movieFavori.isFavorite = true
           film.fav = true
-          //film.comments = fragmentComments?.comments !!
-          //println("comments size " + film.comments.size + " " + film.comments)
-          //film.associatefilm = fragmentDetail.associate_film
-          //println("associate film  size " + film.associatefilm.size + " " + film.associatefilm)
-          //film.actors = fragmentDetail.associate_Actors
-          //film.room = data.getCinema()
-          //data.Filmsfav.add(film)
 
-          filmFav = film(film.id, film.title, film.info, film.release_date, "", film.voteAverage, "")
+          filmFav = film(film.id, film.title, film.info, film.release_date, "", film.voteAverage, film.image)
           InsertTask(context = this, film = filmFav).execute()
-
       }
 
     }
+
 
     private fun setResult(film: film, flag: Int) {
         setResult(flag, Intent().putExtra("filmfav", film.id))
@@ -101,10 +100,37 @@ class MovieDetailActivity : AppCompatActivity() {
 
         // doInBackground methods runs on a worker thread
         override fun doInBackground(vararg objs: Void): Boolean? {
-            // retrieve auto incremented note id
+            // retrieve auto incremented film id
             val j = activityReference.get()!!.filmDbInstance!!.getFilmDao().addFilmFav(film)
             film.id = j.toInt()
             Log.e("ID ", "doInBackground: $j")
+            //saveImage(film.image)
+
+            //save the image of the movie
+            val url = URL(film.image)
+            Log.e("ID ", "URL: $url")
+            val input = url.openStream()
+            try {
+                //The sdcard directory e.g. '/sdcard' can be used directly, or
+                //more safely abstracted with getExternalStorageDirectory()
+                val storagePath = Environment.getExternalStorageDirectory()
+                println("storage path "+storagePath)
+                val output = FileOutputStream(File(storagePath, film.id.toString()+".jpg"))
+                try {
+                    val buffer = ByteArray(2048)
+                    var bytesRead = 0
+                    bytesRead = input.read(buffer, 0, buffer.size)
+                    while ((bytesRead) >= 0) {
+                        output.write(buffer, 0, bytesRead)
+                        bytesRead = input.read(buffer, 0, buffer.size)
+                    }
+                } finally {
+                    output.close()
+                }
+            } finally {
+                input.close()
+            }
+
             return true
 
         }
@@ -114,7 +140,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
         }
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
