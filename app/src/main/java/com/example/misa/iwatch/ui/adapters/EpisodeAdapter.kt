@@ -28,10 +28,6 @@ class EpisodeAdapter(val episodeList: ArrayList<Episode>): RecyclerView.Adapter<
                 .load(WebServiceFactory.IMAGE_BASE_URL +episodeList[position].image)
                 .into(holder?.image)
 
-
-
-
-
        holder?.details!!.setOnClickListener {
 
            val intent = Intent(context,EpisodeDetailActivity::class.java)

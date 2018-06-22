@@ -38,6 +38,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var film: Movie
     var id: Int = 0
+    var tag:String=""
 
     lateinit var fragmentDetail:DetailsFragment
     lateinit var fragmentRoom:RoomsFragment
@@ -58,6 +59,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         id = bundle!!.getInt("id_movie")
         println("movie id activity "+id)
+        //tag =bundle!!.getInt("tag")
 
         val repo = ServiceLocator.instance()
                 .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
