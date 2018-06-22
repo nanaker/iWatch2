@@ -1,6 +1,7 @@
 package com.example.misa.iwatch.ui.activities
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
@@ -67,12 +68,15 @@ class MovieDetailActivity : AppCompatActivity() {
 
 
                 title_movie_detail.text= film_db!!.title
-              //  if (film_db.genres.size>1){ details_movie.text= film_db!!.genres[0].name +" , "+film_db!!.genres[1].name }
-               // else if (film_db.genres.size>0 ) details_movie.text= film_db!!.genres[0].name
+                if (film_db.genres!!.size>1){ details_movie.text= film_db!!.genres!![0].name +" , "+ film_db!!.genres!![1].name }
+                else if (film_db.genres!!.size>0 ) details_movie.text= film_db!!.genres!![0].name
                 if (film_db.release_date!=null) directorName_detail.text= film_db!!.release_date
                 if (film_db.voteAverage!=null) rating_movie.rating = film_db!!.voteAverage
                 if (film_db.info!=null)storyLine.text= film_db!!.info
                 //Charger l'image
+                val photoPath = Environment.getExternalStorageDirectory().toString() + "/"+film_db.id.toString()+".jpg"
+                val bitmap = BitmapFactory.decodeFile(photoPath)
+                pictureMovieDetail.setImageBitmap(bitmap)
                 rate.text= film_db.voteAverage.toString()
                 movieFavori.isFavorite = true
 

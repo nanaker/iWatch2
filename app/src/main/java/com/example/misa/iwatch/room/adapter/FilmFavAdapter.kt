@@ -1,7 +1,9 @@
 package com.example.misa.iwatch.room.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Bundle
 import android.os.Environment
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -9,9 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.room.filmdb.modal.film
+import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 
 
 /**
@@ -43,6 +48,17 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
         val photoPath = Environment.getExternalStorageDirectory().toString() + "/"+list[position].id.toString()+".jpg"
         val bitmap = BitmapFactory.decodeFile(photoPath)
         holder.imageView.setImageBitmap(bitmap)
+        holder.layout.setOnClickListener(){
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            val bundle = Bundle()
+            // bundle.putSerializable("film", getItem(position))
+
+            bundle.putInt("id_movie", list[position]!!.id)
+            bundle.putString("tag", WebServiceFactory.TAG_BDD)
+            bundle.putSerializable("film",list[position])
+            intent.putExtras(bundle)
+            context!!.startActivity(intent)
+        }
 
     }
 
@@ -58,6 +74,7 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
         internal var textViewDate: TextView
         internal var textViewVote: TextView
         internal var imageView: ImageView
+        internal var layout: RelativeLayout
 
         init {
             itemView.setOnClickListener(this)
@@ -66,6 +83,8 @@ class FilmFavAdapter(private var list:List<film>, private val context: Context) 
             textViewDate = itemView.findViewById(R.id.directorName)
             textViewVote = itemView.findViewById(R.id.grade)
             imageView = itemView.findViewById(R.id.pictureMovieDetail)
+            imageView = itemView.findViewById(R.id.pictureMovieDetail)
+            layout=itemView.findViewById(R.id.btnMovieDetail)
 
         }
 

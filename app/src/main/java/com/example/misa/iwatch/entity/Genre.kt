@@ -1,6 +1,7 @@
 package com.example.misa.iwatch.entity
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Genre(
         @SerializedName("id")
@@ -10,5 +11,5 @@ data class Genre(
 
 
 
-) {
+):Serializable{
 }
