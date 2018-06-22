@@ -26,12 +26,9 @@ import java.io.Serializable
         var actors: ArrayList<associate_Actors>,
         var room :ArrayList<Cinema>,
         var comments : ArrayList<Comments>,
-
-
         var realisateur :Personnes,
-
-
-        var video:String,
+        @SerializedName("video")
+        var video:Boolean,
         var fav:Boolean,
         image: String,
         @SerializedName("vote_average")

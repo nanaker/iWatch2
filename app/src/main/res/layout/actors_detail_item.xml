@@ -21,8 +21,7 @@
                 android:id="@+id/picture_actor_detail"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/tom_hardy" />
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/name_actor_detail"

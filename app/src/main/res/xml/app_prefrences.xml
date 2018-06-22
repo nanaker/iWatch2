@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Notifications"
+        android:key="pref_key_notification_settings">
+        <SwitchPreference
+            android:id="@+id/notification_action"/>
+        <SwitchPreference
+            android:id="@+id/notification_drama"/>
+        <SwitchPreference
+            android:id="@+id/notification_romance"/>
+        <SwitchPreference
+            android:id="@+id/notification_animation"/>
+        <SwitchPreference
+            android:id="@+id/notification_comedy"/>
+        <SwitchPreference
+            android:id="@+id/notification_Thriller"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

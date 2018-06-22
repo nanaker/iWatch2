@@ -11,7 +11,6 @@ import com.example.misa.iwatch.Repository.sieries.SerieDetailRepository
 import com.example.misa.iwatch.Repository.sieries.SeriesRepository
 import com.example.misa.iwatch.api.TMDBApi
 import com.example.misa.iwatch.api.WebServiceFactory
-import com.example.misa.iwatch.api.WebServiceFactory2
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -28,7 +27,6 @@ interface ServiceLocator{
     fun getNetworkExecutor():Executor
     fun getDiskIOExecutor():Executor
     fun getApi():TMDBApi
-    fun getApi2():TMDBApi
     fun getRepository(repositoryType:IRepository.Type):IRepository
 }
 
@@ -40,16 +38,12 @@ class DefaultServiceLocator: ServiceLocator{
     private val tmdbApi by lazy {
         WebServiceFactory.create(TMDBApi::class.java)
     }
-    private val tmdbApi2 by lazy {
-        WebServiceFactory2.create(TMDBApi::class.java)
-    }
 
     override fun getNetworkExecutor() = NETWORK_IO
 
     override fun getDiskIOExecutor() = DISK_IO
 
     override fun getApi() = tmdbApi
-    override fun getApi2() = tmdbApi2
 
 
     override fun getRepository(repositoryType: IRepository.Type): IRepository {
@@ -68,19 +62,19 @@ class DefaultServiceLocator: ServiceLocator{
                    networkExecutor = getNetworkExecutor()
            )
            IRepository.Type.DETAILMOVIE -> MovieDetailRepository(
-                   tmdbApi= getApi2()
+                   tmdbApi= getApi()
            )
            IRepository.Type.DETAILSERIE -> SerieDetailRepository(
-                   tmdbApi= getApi2()
+                   tmdbApi= getApi()
            )
            IRepository.Type.DETAILPERSONNE -> ActorDetailRepository(
-                   tmdbApi= getApi2()
+                   tmdbApi= getApi()
            )
            IRepository.Type.DETAILSAISON-> SaisonDetailRepository(
-                   tmdbApi= getApi2()
+                   tmdbApi= getApi()
            )
            IRepository.Type.DETAILEPISODE -> EpisodesDetailRepository(
-                   tmdbApi= getApi2()
+                   tmdbApi= getApi()
            )
        }
     }

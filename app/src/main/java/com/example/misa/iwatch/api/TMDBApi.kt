@@ -55,7 +55,7 @@ interface TMDBApi {
      * Get the videos that have been added to a movie.
      */
     @GET("movie/{movie_id}/videos")
-    fun getMovieVideo(@Path("movie_id") id: Int): Call<ResponseBody>
+    fun getMovieVideo(@Path("movie_id") id: Int): Observable<VideoData>
 
 
     /**
@@ -103,6 +103,8 @@ interface TMDBApi {
             val page:String
     )
 
+    data class VideoData(val id:Int,val results:List<Video>)
+
     @GET("tv/{tv_id}")
     fun getSerieDetailsById(@Path("tv_id") id: Int): Observable<Series>
 
@@ -118,6 +120,9 @@ interface TMDBApi {
     @GET("tv/{tv_id}/season/{season_number}/credits")
     fun getSaisonCredits(@Path("tv_id") id: Int,@Path("season_number") saison_number: Int): Observable<CreditsResponse>
 
+    @GET("tv/{tv_id}/videos")
+    fun getSeriesVideo(@Path("tv_id") id: Int): Observable<VideoData>
 
+    data class Video(val id:String,val key:String)
 
 }

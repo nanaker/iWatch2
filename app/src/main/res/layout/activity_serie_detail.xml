@@ -29,16 +29,14 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
 
-                <VideoView
-                    android:id="@+id/bande_annonce_serie"
+                <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+                    android:id="@+id/youtube_player_view"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:fitsSystemWindows="true"
-                    android:layout_gravity="center_horizontal"
-                    app:layout_collapseMode="parallax"/>
+                    android:layout_height="wrap_content"/>
+
             </FrameLayout>
 
             <LinearLayout

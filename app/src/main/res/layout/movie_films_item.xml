@@ -34,8 +34,7 @@
                     android:id="@+id/picture_associate_film"
                     android:layout_width="match_parent"
                     android:layout_height="132dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/target_movie"/>
+                    android:scaleType="fitXY"/>
 
                 <TextView
                     android:id="@+id/name_associate_film"

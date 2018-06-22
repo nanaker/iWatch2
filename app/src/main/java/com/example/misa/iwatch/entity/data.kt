@@ -34,7 +34,7 @@ class data {
 
                 Cinemas.add(Cinema("Cinema Village ", "22 E 12th St, New York, NY 10003, États-Unis ", R.drawable.cinema_room,arg,false))
                 Cinemas.add(Cinema("Apollo Théâtre ", "18 Rue du Faubourg du Temple, 75011 Paris, France", R.drawable.apollo,arg1,false))
-                Cinemas.add(Cinema("Quad Cinema ", "34 W 13th St, New York, NY 10011, États-Unis ", R.drawable.quad,arg2,false))
+           //git      Cinemas.add(Cinema("Quad Cinema ", "34 W 13th St, New York, NY 10011, États-Unis ", R.drawable.quad,arg2,false))
             }
             return Cinemas
         }

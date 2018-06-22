@@ -52,17 +52,8 @@ class EpisodeDetailActivity : AppCompatActivity() {
         /****************************************** Add Video *************************************/
 
         val mediaController = MediaController(this)
+        TODO("ADD VIDEO")
 
-        mediaController.setAnchorView(bande_anonce)
-        bande_annonce_episode.setMediaController(mediaController)
-
-        try {
-            bande_annonce_episode.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + R.raw.video_harry))
-
-        } catch (e: Exception) {
-            Log.e("Error", e.message)
-            e.printStackTrace()
-        }
 
 
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)

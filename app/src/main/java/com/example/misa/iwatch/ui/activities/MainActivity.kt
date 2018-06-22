@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.arlib.floatingsearchview.FloatingSearchView
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.fragments.*
 
@@ -41,15 +42,8 @@ class MainActivity : AppCompatActivity(){
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
-
-
-
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_search, menu)
-        return true
-    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

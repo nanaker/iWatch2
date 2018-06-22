@@ -82,19 +82,7 @@ class SaisonsDetailActivity : AppCompatActivity() {
 
         /****************************************** Add Video *************************************/
 
-        val mediaController = MediaController(this)
-
-        mediaController.setAnchorView(bande_anonce)
-        bande_annonce_saison.setMediaController(mediaController)
-
-        try {
-            bande_annonce_saison.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + R.raw.video_harry))
-
-        } catch (e: Exception) {
-            Log.e("Error", e.message)
-            e.printStackTrace()
-        }
-
+       TODO("ADD VIDEO")
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = saison.titre

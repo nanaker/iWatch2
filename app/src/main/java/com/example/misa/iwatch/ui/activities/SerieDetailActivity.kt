@@ -1,5 +1,6 @@
 package com.example.misa.iwatch.ui.activities
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,10 @@ import com.example.misa.iwatch.ui.ViewModels.SeriesDetailViewModel
 import com.example.misa.iwatch.ui.fragments.*
 import com.example.misa.iwatch.utils.DefaultServiceLocator
 import com.example.misa.iwatch.utils.ServiceLocator
+import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -55,6 +60,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
 
     }
+    @SuppressLint("CheckResult")
     private fun handleResponse(serie: Series) {
         this.serie=serie
         title_serie_detail.text= serie!!.titre
@@ -82,19 +88,29 @@ class SerieDetailActivity : AppCompatActivity() {
         setTitle(serie!!.titre)
         /****************************************** Add Video *************************************/
 
-        val mediaController = MediaController(this)
-
-        mediaController.setAnchorView(bande_anonce)
-        bande_annonce_serie.setMediaController(mediaController)
-
-        try {
-            bande_annonce_serie.setVideoURI(Uri.parse( "android.resource://" + getPackageName() + "/" + R.raw.video_harry))
-
-        } catch (e: Exception) {
-            Log.e("Error", e.message)
-            e.printStackTrace()
-        }
-
+        val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
+        ServiceLocator.instance()
+                .getApi()
+                .getSeriesVideo(serie.id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.from(ServiceLocator.instance().getNetworkExecutor()))
+                .subscribe(
+                        {
+                            Log.d("TAG",it.results[0].key)
+                            youTubePlayerView.initialize(object : YouTubePlayerInitListener {
+                                override fun onInitSuccess(youTubePlayer: YouTubePlayer) {
+                                    youTubePlayer.addListener(object: AbstractYouTubePlayerListener(){
+                                        override fun onReady() {
+                                            youTubePlayer.loadVideo(it.results[0].key, 0.0F)
+                                        }
+                                    })
+                                }
+                            }, true)
+                        },
+                        {
+                            Log.d("TAG",it.message)
+                        }
+                )
 
         val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
 

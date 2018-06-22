@@ -1,5 +1,6 @@
 package com.example.misa.iwatch.ui.activities
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -23,10 +24,12 @@ import kotlin.collections.ArrayList
 import com.example.misa.iwatch.entity.data
 import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
 import com.example.misa.iwatch.utils.ServiceLocator
+import com.pierfrancescosoffritti.youtubeplayer.player.*
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -54,6 +57,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
 
         val DetailFilmModel =  MoviesDetailViewModel(repo)
+
         DetailFilmModel.getmovie(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -111,40 +115,52 @@ class MovieDetailActivity : AppCompatActivity() {
 
 
     }
+    @SuppressLint("CheckResult")
     private fun handleResponse(movie: Movie) {
-       this.film = movie
-    println("film result title "+film.title)
+        this.film = movie
         title_movie_detail.text= film!!.title
         details_movie.text= film!!.genres[0].name +" , "+film!!.genres[1].name
         directorName_detail.text= film!!.release_date
-       rating_movie.rating = film!!.voteAverage
+        rating_movie.rating = film!!.voteAverage
                storyLine.text= film!!.info
         if (film.image!=null){
-       Glide.with(this)
+        Glide.with(this)
                .load(film!!.image)
                .into(pictureMovieDetail)}
         rate.text= film.voteAverage.toString()
         rating_movie.rating=film.voteAverage
 
-       film.fav=false
+        film.fav=false
         if(film!!.fav) movieFavori.isFavorite = true
 
        /****************************************** Add Video *************************************/
+           val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
+           ServiceLocator.instance()
+                   .getApi()
+                   .getMovieVideo(film.id)
+                   .observeOn(AndroidSchedulers.mainThread())
+                   .subscribeOn(Schedulers.from(ServiceLocator.instance().getNetworkExecutor()))
+                   .subscribe(
+                           {
+                               Log.d("TAG",it.results[0].key)
+                               youTubePlayerView.initialize(object : YouTubePlayerInitListener{
+                                   override fun onInitSuccess(youTubePlayer: YouTubePlayer) {
+                                       youTubePlayer.addListener(object: AbstractYouTubePlayerListener(){
+                                           override fun onReady() {
+                                               youTubePlayer.loadVideo(it.results[0].key, 0.0F)
+                                           }
+                                       })
+                                   }
+                               }, true)
+                           },
+                           {
+                               Log.d("TAG",it.message)
+                           }
+                   )
 
-        val mediaController = MediaController(this)
 
-        mediaController.setAnchorView(bande_anonce)
-        bande_anonce.setMediaController(mediaController)
 
-        try {
-            bande_anonce.setVideoURI(Uri.parse( "android.resource://" + getPackageName()+ "/"+ R.raw.video_harry ))
 
-        } catch (e: Exception) {
-            Log.e("Error", e.message)
-            e.printStackTrace()
-        }
-
-       //addfav_film()
 
        setSupportActionBar(findViewById(R.id.my_toolbar))
        supportActionBar?.setDisplayHomeAsUpEnabled(true)
