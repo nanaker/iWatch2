@@ -39,11 +39,11 @@ android:orientation="vertical">
                 android:textSize="8pt"/>
 
             <TextView
+                android:id="@+id/release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="#B3ffffff"
-                android:text="Année de Sortie: 2014"/>
+                android:textColor="#B3ffffff" />
 
         </LinearLayout>
     </LinearLayout>

@@ -4,6 +4,8 @@ package com.example.misa.iwatch.ui.fragments
  * Created by misa on 3/27/18.
  */
 
+import android.arch.lifecycle.Observer
+import android.arch.paging.PagedList
 import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.os.Bundle
@@ -15,12 +17,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.Repository.IRepository
+import com.example.misa.iwatch.entity.Movie
 import com.example.misa.iwatch.ui.adapters.CinemaAdapter
 import com.example.misa.iwatch.ui.adapters.MoviesAdapter
 import com.example.misa.iwatch.entity.data.Companion.getCinema
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
+import com.example.misa.iwatch.ui.ViewModels.MoviesViewModel
+import com.example.misa.iwatch.utils.getViewModel
 
 class CinemaFragment : Fragment() {
+    private val moviesAdapter by lazy {
+        MoviesAdapter(context!!)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,16 +67,19 @@ class CinemaFragment : Fragment() {
 
         }
 
-        remplirMovies(rv)// par defaut
+        remplirMovies(rv)
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val moviesModel = getViewModel(IRepository.Type.MOVIE) as MoviesViewModel
+        moviesModel.popularFilms.observe(this, Observer<PagedList<Movie>> {
+            moviesAdapter.submitList(it)
+        })
     }
     fun remplirMovies(rv:RecyclerView){
         rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-
-        //val Films= getMoviesRecent()
-
-      //  var adapter = MoviesAdapter(Films)
-     //   rv.adapter = adapter
+        rv.adapter = moviesAdapter
 
 
     }

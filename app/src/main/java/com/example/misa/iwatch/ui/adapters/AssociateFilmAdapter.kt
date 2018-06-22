@@ -19,7 +19,7 @@ import com.example.misa.iwatch.R
 import com.example.misa.iwatch.api.WebServiceFactory.Companion.IMAGE_BASE_URL
 import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
+
 
 class AssociateFilmAdapter(val associateFilmList: ArrayList<associate_Movie>): RecyclerView.Adapter<AssociateFilmAdapter.ViewHolder>() {
 
@@ -37,6 +37,7 @@ class AssociateFilmAdapter(val associateFilmList: ArrayList<associate_Movie>): R
 
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
+
             bundle.putInt("id_movie", associateFilmList[position].id)
             intent.putExtras(bundle)
 

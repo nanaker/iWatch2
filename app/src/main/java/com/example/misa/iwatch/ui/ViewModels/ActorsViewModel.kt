@@ -11,7 +11,7 @@ import com.example.misa.iwatch.entity.Personnes
 class ActorsViewModel(actorsRepo: ActorsRepository):ViewModel(){
     val actorsViewModel:MutableLiveData<List<Movie>> = MutableLiveData()
 
-    val filmsOnTheater = Transformations.switchMap(actorsRepo.getPopularActors(),{
+    val popularActors = Transformations.switchMap(actorsRepo.getPopularActors(),{
         it.pagedList
     })!!
 

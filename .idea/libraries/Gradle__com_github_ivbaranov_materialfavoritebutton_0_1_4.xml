@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.ivbaranov:materialfavoritebutton-0.1.4">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialfavoritebutton-0.1.4.aar/1d49b4491174973088f845e670803ddf/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialfavoritebutton-0.1.4.aar/1d49b4491174973088f845e670803ddf/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialfavoritebutton-0.1.4.aar/58c1b8a83b370b97148d091933f7a53e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialfavoritebutton-0.1.4.aar/58c1b8a83b370b97148d091933f7a53e/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

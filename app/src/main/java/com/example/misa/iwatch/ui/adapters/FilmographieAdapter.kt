@@ -19,12 +19,14 @@ import com.example.misa.iwatch.R
 import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
+
 
 class FilmographieAdapter(val associateFilmList: ArrayList<associate_Movie>): RecyclerView.Adapter<FilmographieAdapter.ViewHolder>() {
     private var context: Context? = null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.name?.text = associateFilmList[position].title
+        holder?.realeaseDate?.text = "Date de sortie: ${associateFilmList[position].releaseDate}"
+
         Glide.with(this!!.context!!)
                 .load(WebServiceFactory.IMAGE_BASE_URL +associateFilmList[position]?.image)
                 .into(holder?.image)
@@ -57,6 +59,7 @@ class FilmographieAdapter(val associateFilmList: ArrayList<associate_Movie>): Re
         val name = itemView.findViewById<TextView>(R.id.filmographie_name)
         val image = itemView.findViewById<ImageView>(R.id.filmographie_picture)
         val detail= itemView.findViewById<LinearLayout>(R.id.btnDetailfilmographie)
+        val realeaseDate = itemView.findViewById<TextView>(R.id.release_date)
 
 
 

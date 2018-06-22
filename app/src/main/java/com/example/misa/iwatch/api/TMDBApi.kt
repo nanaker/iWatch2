@@ -31,6 +31,12 @@ interface TMDBApi {
     @GET("movie/now_playing")
     fun getMoviesInTheater(@Query("page") pageNumber: Int): Call<ListingData<Movie>>
 
+    /**
+     * Get a list of popular movies .
+     */
+    @GET("movie/popular")
+    fun getPopularMovies(@Query("page") pageNumber: Int): Call<ListingData<Movie>>
+
 
 
     /**
@@ -88,6 +94,9 @@ interface TMDBApi {
      */
     @GET("tv/on_the_air")
     fun getSeriesOnTheAir(@Query("page") pageNumber: Int): Call<ListingData<Series>>
+
+    @GET("tv/popular")
+    fun getPopularSeries(@Query("page") pageNumber: Int): Call<ListingData<Series>>
 
     class ListingData<T>(
             val results:List<T>,

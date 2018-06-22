@@ -9,7 +9,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PageKeyedMoviesDataSource(tmdbApi: TMDBApi):BaseDataSource<Movie>(tmdbApi){
+class MoviesInTheaterPageKeyedDataSource(tmdbApi: TMDBApi):BaseDataSource<Movie>(tmdbApi){
+
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
         networkState.postValue(NetworkState.LOADING)
@@ -46,17 +47,17 @@ class PageKeyedMoviesDataSource(tmdbApi: TMDBApi):BaseDataSource<Movie>(tmdbApi)
         tmdbApi.getMoviesInTheater(params.key).enqueue(object : Callback<TMDBApi.ListingData<Movie>>{
 
             override fun onResponse(call: Call<TMDBApi.ListingData<Movie>>, response: Response<TMDBApi.ListingData<Movie>>) {
-               if(response.isSuccessful){
-                   val items    = response.body()?.results!!
-                   val pageNum :Int = response.body()?.page!!.toInt()
+                if(response.isSuccessful){
+                    val items    = response.body()?.results!!
+                    val pageNum :Int = response.body()?.page!!.toInt()
 
-                   callback.onResult(items,(pageNum+1))
-                   networkState.postValue(NetworkState.LOADED)
+                    callback.onResult(items,(pageNum+1))
+                    networkState.postValue(NetworkState.LOADED)
 
-               }else{
-                   networkState.postValue(
-                           NetworkState.error("error while loading : ${response.code()}"))
-               }
+                }else{
+                    networkState.postValue(
+                            NetworkState.error("error while loading : ${response.code()}"))
+                }
             }
 
             override fun onFailure(call: Call<TMDBApi.ListingData<Movie>>, t: Throwable) {

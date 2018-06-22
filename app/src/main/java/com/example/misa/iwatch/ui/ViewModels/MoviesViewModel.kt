@@ -11,16 +11,21 @@ import com.example.misa.iwatch.entity.Movie
 
 class MoviesViewModel(val moviesRepo:MovieRepository):ViewModel(){
 
-    val recentFilms:MutableLiveData<List<Movie>> = MutableLiveData()
-
     val filmsOnTheater = Transformations.switchMap(moviesRepo.getMoviesInTheater(),{
         it.pagedList
     })!!
 
-    val networkState = Transformations.switchMap(moviesRepo.getMoviesInTheater(),{
+    val popularFilms = Transformations.switchMap(moviesRepo.getPopularMovies(),{
+        it.pagedList
+    })!!
+
+    val filmsOnTheaterNetworkState = Transformations.switchMap(moviesRepo.getMoviesInTheater(),{
         it.networkState
     })!!
 
+    val popularFilmsNetworkState = Transformations.switchMap(moviesRepo.getPopularMovies(),{
+        it.networkState
+    })!!
 
 
 

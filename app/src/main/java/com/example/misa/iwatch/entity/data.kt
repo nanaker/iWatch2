@@ -23,31 +23,6 @@ class data {
 
 
 
-        fun getMoviesRecent(): ArrayList<Movie> {
-
-            return this.Films
-        }
-
-        fun getSeriesRecent(): ArrayList<Series> {
-
-
-
-            return Series
-        }
-
-        fun getActors(): ArrayList<Personnes> {
-
-
-            return Acteurs
-        }
-
-        fun getRealisators(): ArrayList<Personnes> {
-
-
-
-
-            return Realisateurs
-        }
 
         fun getCinema(): ArrayList<Cinema> {
 
