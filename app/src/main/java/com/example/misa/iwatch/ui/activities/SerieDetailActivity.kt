@@ -57,18 +57,27 @@ class SerieDetailActivity : AppCompatActivity() {
     }
     private fun handleResponse(serie: Series) {
         this.serie=serie
+
         title_serie_detail.text= serie!!.titre
-        if (serie.genres.size>0)details_serie.text= serie!!.genres[0].name +" , "+serie!!.genres[1].name
+
+        if (serie.genres.size>1)details_serie.text= serie!!.genres[0].name +" , "+serie!!.genres[1].name
+        else if (serie.genres.size>0)details_serie.text= serie!!.genres[0].name
+
         if (serie.date!=null)directorName_serie.text= serie!!.date
+
         if (serie.nbEposides!=null)nbeisodes.text=serie!!.nbEposides
+
         if (serie.nbSaisons!=null)nbsaisons.text=serie!!.nbSaisons
+
         if (serie.info!=null)storyLine_serie.text= serie!!.info
-        if(serie!!.fav) serieFavori.isFavorite = true
+
         if (serie.image!=null){
         Glide.with(this)
                 .load(serie!!.image)
                 .into(pictureSerie)}
+
         if (serie.voteAverage!=null)rateSerie.text=serie.voteAverage.toString()
+
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -125,11 +134,5 @@ class SerieDetailActivity : AppCompatActivity() {
 
 
 
-    fun addfav_serie() {
-        serie.fav=true
-        // set the function to add a favoris film
-        data.SeriesFav.add(serie)
 
-
-    }
 }

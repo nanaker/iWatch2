@@ -11,14 +11,13 @@ import com.example.misa.iwatch.ui.adapters.MovieSectionsPageAdapter
 import com.example.misa.iwatch.ui.fragments.CommentsFragment
 import com.example.misa.iwatch.ui.fragments.DetailsFragment
 import com.example.misa.iwatch.ui.fragments.RoomsFragment
-import com.example.misa.iwatch.entity.Movie
 import android.view.MenuItem
 import android.widget.MediaController
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
-import com.example.misa.iwatch.entity.data
+import com.example.misa.iwatch.entity.*
 import com.example.misa.iwatch.room.filmdb.filmDataBase
 import com.example.misa.iwatch.room.filmdb.modal.film
 import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
@@ -80,8 +79,73 @@ class MovieDetailActivity : AppCompatActivity() {
 
           filmFav = film(film.id, film.title, film.info, film.release_date, "", film.voteAverage, "")
           InsertTask(context = this, film = filmFav).execute()
-
+          
+          saveComment(film.id)
+          saveAssociatefilm(film.id)
+          saveAssociateActeur(film.id)
       }
+
+    }
+
+    private fun saveAssociateActeur(id: Int) {
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+        val DetailFilmModel =  MoviesDetailViewModel(repo)
+
+        DetailFilmModel.getcredits(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponseCredits, this::handleError)
+
+    }
+
+    fun handleResponseCredits(credits:CreditsResponse){
+        val associate_Actors=credits.associate_Actors
+        val id_movie=film.id
+
+        // save associate actors in the database
+
+
+    }
+
+    private fun saveAssociatefilm(id: Int) {
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+        val DetailFilmModel =  MoviesDetailViewModel(repo)
+
+        DetailFilmModel.getsimilar(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponseSimilar, this::handleError)
+    }
+
+    fun handleResponseSimilar(similar:SimilarMovieResponse){
+        val associate_film=similar.associate_Movie
+        val id_movie=film.id
+
+        // save associate film in the database
+
+
+    }
+
+
+    private fun saveComment(id: Int) {
+        val repo = ServiceLocator.instance()
+                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+        val DetailFilmModel =  MoviesDetailViewModel(repo)
+
+        DetailFilmModel.getreview(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponseComment, this::handleError)
+
+    }
+    fun handleResponseComment(reviews:ReviewResponse){
+        val comments=reviews.comments
+        val id_movie=film.id
+
+        // save reviews in the database
+
 
     }
 
@@ -147,7 +211,8 @@ class MovieDetailActivity : AppCompatActivity() {
        this.film = movie
     println("film result title "+film.title)
         title_movie_detail.text= film!!.title
-        if (film.genres.size>0){ details_movie.text= film!!.genres[0].name +" , "+film!!.genres[1].name }
+        if (film.genres.size>1){ details_movie.text= film!!.genres[0].name +" , "+film!!.genres[1].name }
+        else if (film.genres.size>0 ) details_movie.text= film!!.genres[0].name
         if (film.release_date!=null) directorName_detail.text= film!!.release_date
         if (film.voteAverage!=null) rating_movie.rating = film!!.voteAverage
         if (film.info!=null)storyLine.text= film!!.info
