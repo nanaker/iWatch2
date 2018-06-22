@@ -34,7 +34,7 @@ import java.util.*
  * Created by misa on 3/29/18.
  */
 class CommentsFragment : Fragment() {
-    lateinit var comments:ArrayList<Comments>
+     var comments:ArrayList<Comments>? = null
 
     lateinit var rv:RecyclerView
 
@@ -86,10 +86,10 @@ class CommentsFragment : Fragment() {
 
     private fun handleResponse(review: ReviewResponse) {
         this.comments=review.comments
-        println("comment size "+comments.size)
+        println("comment size "+comments?.size)
 
         this.rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        var adapter = CommentAdapter(this.comments)
+        var adapter = CommentAdapter(this.comments!!)
         this.rv.adapter = adapter
         this.rv.invalidate();
 
