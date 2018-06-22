@@ -1,9 +1,5 @@
 package com.example.misa.iwatch.ui.activities
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
@@ -15,10 +11,10 @@ import com.example.misa.iwatch.ui.adapters.MovieSectionsPageAdapter
 import com.example.misa.iwatch.ui.fragments.CommentsFragment
 import com.example.misa.iwatch.ui.fragments.DetailsFragment
 import com.example.misa.iwatch.ui.fragments.RoomsFragment
-import android.view.View
 import com.example.misa.iwatch.entity.Movie
 import android.view.MenuItem
 import android.widget.MediaController
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
@@ -40,11 +36,11 @@ class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var fragmentDetail:DetailsFragment
     lateinit var fragmentRoom:RoomsFragment
-    lateinit var fragmentComments:CommentsFragment
+    var fragmentComments:CommentsFragment? = null
 
     // variables for room data base
-    private var mDb: filmDataBase ? = null
-    private var filmFav: film? = null
+    private var filmDbInstance: filmDataBase ? = null
+    lateinit var filmFav: film
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,33 +51,35 @@ class MovieDetailActivity : AppCompatActivity() {
         val bundle = intent.extras
 
 
-        id=bundle!!.getInt("id_movie")
+        id = bundle!!.getInt("id_movie")
         println("movie id activity "+id)
 
         val repo = ServiceLocator.instance()
                 .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
 
         val DetailFilmModel =  MoviesDetailViewModel(repo)
+
         DetailFilmModel.getmovie(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError)
 
-        mDb = filmDataBase.getInstance(this)
+        filmDbInstance = filmDataBase.getInstance(this)
 
       movieFavori.setOnClickListener(){
-          filmFav = film(film.id, film.title, film.info, film.release_date,
-                  "", film.voteAverage, "")
-          println("add fav film ")
+
           movieFavori.isFavorite = true
           film.fav = true
-          film.comments = fragmentComments.comments
-          println("comments size "+film.comments.size+" "+film.comments)
-          film.associatefilm = fragmentDetail.associate_film
-          println("associate film  size "+film.associatefilm.size+" "+film.associatefilm)
-          film.actors = fragmentDetail.associate_Actors
-          film.room = data.getCinema()
-          data.Filmsfav.add(film)
+          //film.comments = fragmentComments?.comments !!
+          //println("comments size " + film.comments.size + " " + film.comments)
+          //film.associatefilm = fragmentDetail.associate_film
+          //println("associate film  size " + film.associatefilm.size + " " + film.associatefilm)
+          //film.actors = fragmentDetail.associate_Actors
+          //film.room = data.getCinema()
+          //data.Filmsfav.add(film)
+
+          filmFav = film(film.id, film.title, film.info, film.release_date, "", film.voteAverage, "")
+          InsertTask(context = this, film = filmFav).execute()
 
       }
 
@@ -95,7 +93,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private class InsertTask// only retain a weak reference to the activity
     internal constructor(context: MovieDetailActivity, private val film: film) : AsyncTask<Void, Void, Boolean>() {
 
-        private val activityReference: WeakReference<MovieDetailActivity>
+        private var activityReference: WeakReference<MovieDetailActivity>
 
         init {
             activityReference = WeakReference<MovieDetailActivity>(context)
@@ -104,17 +102,16 @@ class MovieDetailActivity : AppCompatActivity() {
         // doInBackground methods runs on a worker thread
         override fun doInBackground(vararg objs: Void): Boolean? {
             // retrieve auto incremented note id
-            val j = activityReference.get()!!.mDb!!.getFilmDao().addFilmFav(film)
+            val j = activityReference.get()!!.filmDbInstance!!.getFilmDao().addFilmFav(film)
+            film.id = j.toInt()
             Log.e("ID ", "doInBackground: $j")
             return true
+
         }
 
         // onPostExecute runs on main thread
         override fun onPostExecute(bool: Boolean?) {
-            if (bool!!) {
-                activityReference.get()!!.setResult(film, 1)
-                activityReference.get()!!.finish()
-            }
+
         }
     }
 
@@ -137,15 +134,13 @@ class MovieDetailActivity : AppCompatActivity() {
         // set the function to add a favoris film
         println("add fav film ")
         film.fav = true
-        film.comments = fragmentComments.comments
+        film.comments = fragmentComments?.comments !!
         println("comments size " + film.comments.size + " " + film.comments)
         film.associatefilm = fragmentDetail.associate_film
         println("associate film  size " + film.associatefilm.size + " " + film.associatefilm)
         film.actors = fragmentDetail.associate_Actors
         film.room = data.getCinema()
         data.Filmsfav.add(film)
-
-
 
     }
     private fun handleResponse(movie: Movie) {
@@ -187,10 +182,6 @@ class MovieDetailActivity : AppCompatActivity() {
        supportActionBar?.setDisplayHomeAsUpEnabled(true)
        supportActionBar?.title = film.title
 
-
-
-
-
        setTitle("Details")
 
        val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
@@ -199,7 +190,7 @@ class MovieDetailActivity : AppCompatActivity() {
          fragmentComments=CommentsFragment.newInstance(film!!.id,1)
        pageAdapter.addFragment(fragmentDetail, "DETAILS")
        pageAdapter.addFragment(fragmentRoom, "ROOMS")
-       pageAdapter.addFragment(fragmentComments, "COMMENTS")
+       pageAdapter.addFragment(fragmentComments!!, "COMMENTS")
 
        println("page container")
        println("data cinema size "+data.getCinema().size)

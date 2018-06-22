@@ -13,9 +13,9 @@ interface filmDao {
     @Query("SELECT * from filmData")
     fun getFilmFav(): List<film>
 
-    @Insert
-    abstract fun addFilmFav(film: film): Long
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    fun addFilmFav(film: film): Long
 
     @Delete
-    abstract fun deleteFilmFav(film: film)
+    fun deleteFilmFav(film: film)
 }

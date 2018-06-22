@@ -15,14 +15,13 @@ import com.example.misa.iwatch.room.filmdb.modal.film
  * Created by misa on 6/19/18.
  */
 
-class FilmFavAdapter(private val context: Context) : RecyclerView.Adapter<FilmFavAdapter.BeanHolder>() {
-    private val layoutInflater: LayoutInflater
-    private val onNoteItemClick: OnNoteItemClick
-    lateinit var list:List<film>
+class FilmFavAdapter(private var list:List<film>, private val context: Context) : RecyclerView.Adapter<FilmFavAdapter.BeanHolder>() {
+    private var layoutInflater: LayoutInflater
+    //private val onNoteItemClick: OnNoteItemClick
 
     init {
         layoutInflater = LayoutInflater.from(context)
-        this.onNoteItemClick = context as OnNoteItemClick
+//        this.onNoteItemClick = context as OnNoteItemClick
     }
 
 
@@ -34,6 +33,9 @@ class FilmFavAdapter(private val context: Context) : RecyclerView.Adapter<FilmFa
     override fun onBindViewHolder(holder: BeanHolder, position: Int) {
         Log.e("bind", "onBindViewHolder: " + list[position])
         holder.textViewTitle.setText(list[position].title)
+        holder.textViewInfo.setText(list[position].info.take(50)+"...")
+        holder.textViewDate.setText(list[position].release_date)
+        holder.textViewVote.setText(list[position].voteAverage.toString().substring(0,3))
     }
 
     override fun getItemCount(): Int {
@@ -44,14 +46,20 @@ class FilmFavAdapter(private val context: Context) : RecyclerView.Adapter<FilmFa
 
 
         internal var textViewTitle: TextView
+        internal var textViewInfo: TextView
+        internal var textViewDate: TextView
+        internal var textViewVote: TextView
 
         init {
             itemView.setOnClickListener(this)
             textViewTitle = itemView.findViewById(R.id.title)
+            textViewInfo = itemView.findViewById(R.id.details)
+            textViewDate = itemView.findViewById(R.id.directorName)
+            textViewVote = itemView.findViewById(R.id.grade)
         }
 
         override fun onClick(view: View) {
-            onNoteItemClick.onNoteClick(adapterPosition)
+            //onNoteItemClick.onNoteClick(adapterPosition)
         }
     }
 

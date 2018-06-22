@@ -5,6 +5,8 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
+import com.example.misa.iwatch.entity.associate_Movie
+import com.example.misa.iwatch.room.DateRoomConverter
 import com.example.misa.iwatch.room.filmdb.dao.filmDao
 import com.example.misa.iwatch.room.filmdb.modal.film
 
@@ -13,10 +15,10 @@ import com.example.misa.iwatch.room.filmdb.modal.film
  */
 
 @Database(entities = arrayOf(film::class), version = 1)
+//@TypeConverters(DateRoomConverter::class)
 abstract class filmDataBase : RoomDatabase() {
 
     abstract fun getFilmDao(): filmDao
-
 
     companion object {
         private var INSTANCE: filmDataBase? = null
@@ -24,12 +26,16 @@ abstract class filmDataBase : RoomDatabase() {
         fun getInstance(context: Context): filmDataBase? {
             if (INSTANCE == null) {
                 synchronized(filmDataBase::class) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            filmDataBase::class.java, "weather.db")
-                            .build()
+                    INSTANCE = buildDatabaseInstance(context)
                 }
             }
             return INSTANCE
+        }
+
+        private fun buildDatabaseInstance(context: Context): filmDataBase {
+            return Room.databaseBuilder(context,
+                    filmDataBase::class.java!!,
+                    "filmData").allowMainThreadQueries().build()
         }
 
         fun destroyInstance() {
