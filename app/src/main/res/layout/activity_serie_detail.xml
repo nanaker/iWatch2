@@ -112,7 +112,7 @@
                             android:padding="12dp"
                             android:layout_marginBottom="1dp"
                             android:clickable="true"
-                            app:srb_starSize="12dp"
+                            app:srb_starSize="10dp"
 
                             app:srb_numberOfStars="10"
                             app:srb_rating="3"
@@ -151,15 +151,7 @@
 
                         </LinearLayout>
 
-                        <com.github.ivbaranov.mfb.MaterialFavoriteButton
-                            android:id="@+id/serieFavori"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="-10dp"
-                            android:layout_marginLeft="-6dp"
-                            app:mfb_type="heart"
-                            android:onClick="addfav_serie"
-                            app:mfb_color="@color/bordo"/>
+
                     </LinearLayout>
 
                 </LinearLayout>

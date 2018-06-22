@@ -14,6 +14,11 @@ class MoviesDetailViewModel(val moviesRepo:MovieDetailRepository):ViewModel(){
      println("calling view model  ")
      return moviesRepo.getMovieDetail( id)
  }
+    fun getLatestMovie( ):Observable<Movie>{
+        println("calling view model  ")
+        return moviesRepo.getLatestMovie()
+    }
+
     fun getreview( id:Int):Observable<ReviewResponse>{
         println("calling view model review ")
         return moviesRepo.getMovieReview( id)
