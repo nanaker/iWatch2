@@ -13,7 +13,7 @@ import com.example.misa.iwatch.entity.Cinema
 import com.example.misa.iwatch.ui.adapters.RoomAdapter
 import com.example.misa.iwatch.entity.Room
 import com.example.misa.iwatch.entity.data
-import com.example.misa.iwatch.entity.data.Companion.getMoviesRecent
+
 
 /**
  * Created by misa on 3/29/18.
@@ -28,7 +28,7 @@ class RoomsFragment : Fragment() {
         val rv = rootView.findViewById<RecyclerView>(R.id.recycleViewRooms)
         rv.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
 
-        val Films= getMoviesRecent()
+       // val Films= getMoviesRecent()
 
         var adapter = RoomAdapter(cinema)
         rv.adapter = adapter

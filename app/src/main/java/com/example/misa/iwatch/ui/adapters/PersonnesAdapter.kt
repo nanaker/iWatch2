@@ -4,26 +4,34 @@ package com.example.misa.iwatch.ui.adapters
  * Created by NAWAL on 28/03/2018.
  */
 
+import android.arch.paging.PagedListAdapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
 import com.example.misa.iwatch.ui.activities.PersonDetailActivity
 import com.example.misa.iwatch.entity.Personnes
 
-class PersonnesAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapter<PersonnesAdapter.ViewHolder>() {
-    private var context: Context? = null
+class PersonnesAdapter(val context: Context): PagedListAdapter<Personnes,PersonnesAdapter.ViewHolder>(Personnes.DIFF_CALL) {
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.nom?.text = actorList[position].nom
-        holder?.dateB?.text = actorList[position].dateNaissance
-        holder?.placeB?.text = actorList[position].LieuNiassance
-      //  holder?.image?.setImageResource(actorList[position].image)
-        holder?.grade?.text = actorList[position].eval.toString()
+        Log.d("TAG",getItem(position).toString())
+        holder?.nom?.text = getItem(position)?.nom
+        holder?.dateB?.text = getItem(position)?.dateNaissance
+        holder?.placeB?.text = getItem(position)?.LieuNiassance
+        Log.d("TAG",getItem(position)?.image)
+        Glide.with(context)
+                .load(getItem(position)?.image)
+                .into(holder?.image)
+        holder?.grade.text = getItem(position)?.eval.toString().substring(0,2)
+
 
 
        holder?.details!!.setOnClickListener {
@@ -33,7 +41,7 @@ class PersonnesAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapte
            val intent = Intent(context, PersonDetailActivity::class.java)
            val bundle = Bundle()
 
-           bundle.putSerializable("personne", actorList[position])
+           bundle.putSerializable("id_personne", getItem(position)?.id)
            intent.putExtras(bundle)
 
            context!!.startActivity(intent)
@@ -45,13 +53,9 @@ class PersonnesAdapter(val actorList: ArrayList<Personnes>): RecyclerView.Adapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.persons_item, parent, false)
-        context=v.context
         return ViewHolder(v);
     }
 
-    override fun getItemCount(): Int {
-        return actorList.size
-    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

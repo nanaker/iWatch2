@@ -19,7 +19,7 @@ interface ServiceLocator{
 
     companion object {
         private var instance:ServiceLocator?=null
-        fun instance():ServiceLocator{
+        public fun instance():ServiceLocator{
             if(instance == null) instance = DefaultServiceLocator()
             return instance!!
         }

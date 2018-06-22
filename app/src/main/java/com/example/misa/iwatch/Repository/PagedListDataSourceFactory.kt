@@ -3,9 +3,11 @@ package com.example.misa.iwatch.Repository
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource
 import android.arch.paging.PageKeyedDataSource
+import com.example.misa.iwatch.Repository.Movies.PopularMoviesPageKeyedDataSource
+import com.example.misa.iwatch.Repository.Moviess.MoviesInTheaterPageKeyedDataSource
 import com.example.misa.iwatch.Repository.actors.PageKeyedActorsDataSource
-import com.example.misa.iwatch.Repository.Moviess.PageKeyedMoviesDataSource
-import com.example.misa.iwatch.Repository.sieries.PageKeyedSeriesDataSource
+import com.example.misa.iwatch.Repository.sieries.PopularSeriesPageKeyedDataSource
+import com.example.misa.iwatch.Repository.sieries.SeriesOnAirPageKeyDataSource
 import com.example.misa.iwatch.api.TMDBApi
 import java.util.concurrent.Executor
 
@@ -16,9 +18,11 @@ import java.util.concurrent.Executor
 
 enum class DataSourceKey private constructor(s: String) {
     Persons("Persons"),
-    Movie("Movie"),
-    MovieDetail("MovieDetail"),
-    Series("Series")
+    MoviesOnTheater("MoviesOnTheater"),
+    PopularMovies("PopularMovies"),
+    SeriesOnAir("SeriesOnAir"),
+    PopularSeries("PopularSeries")
+
 
 
 
@@ -31,8 +35,11 @@ class PagedListDataSourceFactory<T:Any>(val tmdbApi:TMDBApi,val networkExecutor:
         lateinit var source:PageKeyedDataSource<Int,T>
         when(dataSourceKey){
             DataSourceKey.Persons-> source = PageKeyedActorsDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
-            DataSourceKey.Movie -> source = PageKeyedMoviesDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
-            DataSourceKey.Series -> source = PageKeyedSeriesDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+            DataSourceKey.MoviesOnTheater -> source = MoviesInTheaterPageKeyedDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+            DataSourceKey.PopularMovies -> source = PopularMoviesPageKeyedDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+            DataSourceKey.SeriesOnAir -> source = SeriesOnAirPageKeyDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+            DataSourceKey.PopularSeries -> source = PopularSeriesPageKeyedDataSource(tmdbApi) as PageKeyedDataSource<Int, T>
+
 
         }
 

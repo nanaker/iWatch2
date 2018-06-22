@@ -19,6 +19,7 @@ import com.example.misa.iwatch.entity.data
 import com.example.misa.iwatch.ui.ViewModels.MoviesDetailViewModel
 import com.example.misa.iwatch.ui.ViewModels.SeriesDetailViewModel
 import com.example.misa.iwatch.ui.fragments.*
+import com.example.misa.iwatch.utils.DefaultServiceLocator
 import com.example.misa.iwatch.utils.ServiceLocator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -44,9 +45,10 @@ class SerieDetailActivity : AppCompatActivity() {
                 .getRepository(IRepository.Type.DETAILSERIE) as SerieDetailRepository
 
         val DetailSerieModel =  SeriesDetailViewModel(repo)
+
         DetailSerieModel.getserie(id)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.from(ServiceLocator.instance().getNetworkExecutor()))
                 .subscribe(this::handleResponse, this::handleError)
 
         //pictureSerie.setImageResource(serie!!.image)

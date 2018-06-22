@@ -1,29 +1,27 @@
-package com.example.misa.iwatch.Repository.sieries
+package com.example.misa.iwatch.Repository.Movies
 
-import android.arch.paging.PageKeyedDataSource
 import com.example.misa.iwatch.Repository.BaseDataSource
 import com.example.misa.iwatch.Repository.NetworkState
 import com.example.misa.iwatch.api.TMDBApi
 import com.example.misa.iwatch.entity.Movie
-import com.example.misa.iwatch.entity.Series
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.Executor
 
-class PageKeyedSeriesDataSource(tmdbApi: TMDBApi):BaseDataSource<Series>(tmdbApi){
+class PopularMoviesPageKeyedDataSource(tmdbApi: TMDBApi): BaseDataSource<Movie>(tmdbApi){
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Series>) {
+
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
         networkState.postValue(NetworkState.LOADING)
-        tmdbApi.getSeriesOnTheAir(1).enqueue(object : Callback<TMDBApi.ListingData<Series>> {
+        tmdbApi.getPopularMovies(1).enqueue(object : Callback<TMDBApi.ListingData<Movie>> {
 
-            override fun onResponse(call: Call<TMDBApi.ListingData<Series>>, response: Response<TMDBApi.ListingData<Series>>) {
+            override fun onResponse(call: Call<TMDBApi.ListingData<Movie>>, response: Response<TMDBApi.ListingData<Movie>>) {
                 if(response.isSuccessful){
                     val items    = response.body()?.results!!
                     val pageNum :Int = response.body()?.page!!.toInt()
 
 
-                    callback.onResult(items,null,(pageNum+1))
+                    callback.onResult(items,null,pageNum+1)
                     networkState.postValue(NetworkState.LOADED)
 
                 }else{
@@ -32,7 +30,7 @@ class PageKeyedSeriesDataSource(tmdbApi: TMDBApi):BaseDataSource<Series>(tmdbApi
                 }
             }
 
-            override fun onFailure(call: Call<TMDBApi.ListingData<Series>>, t: Throwable) {
+            override fun onFailure(call: Call<TMDBApi.ListingData<Movie>>, t: Throwable) {
                 networkState.postValue(
                         NetworkState.error("error  : ${t.message}")
                 )
@@ -41,17 +39,18 @@ class PageKeyedSeriesDataSource(tmdbApi: TMDBApi):BaseDataSource<Series>(tmdbApi
         })
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Series>) {
-        networkState.postValue(NetworkState.LOADING)
-        tmdbApi.getSeriesOnTheAir(params.key).enqueue(object : Callback<TMDBApi.ListingData<Series>> {
 
-            override fun onResponse(call: Call<TMDBApi.ListingData<Series>>, response: Response<TMDBApi.ListingData<Series>>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+
+        networkState.postValue (NetworkState.LOADING)
+        tmdbApi.getPopularMovies(params.key).enqueue(object : Callback<TMDBApi.ListingData<Movie>> {
+
+            override fun onResponse(call: Call<TMDBApi.ListingData<Movie>>, response: Response<TMDBApi.ListingData<Movie>>) {
                 if(response.isSuccessful){
                     val items    = response.body()?.results!!
                     val pageNum :Int = response.body()?.page!!.toInt()
 
-
-                    callback.onResult(items,pageNum+1)
+                    callback.onResult(items,(pageNum+1))
                     networkState.postValue(NetworkState.LOADED)
 
                 }else{
@@ -60,11 +59,11 @@ class PageKeyedSeriesDataSource(tmdbApi: TMDBApi):BaseDataSource<Series>(tmdbApi
                 }
             }
 
-            override fun onFailure(call: Call<TMDBApi.ListingData<Series>>, t: Throwable) {
+            override fun onFailure(call: Call<TMDBApi.ListingData<Movie>>, t: Throwable) {
                 networkState.postValue(
                         NetworkState.error("error  : ${t.message}")
                 )
-               loadAfter(params,callback)
+                loadAfter(params,callback)
             }
         })
     }
