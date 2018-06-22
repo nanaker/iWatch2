@@ -58,26 +58,25 @@ class SerieDetailActivity : AppCompatActivity() {
     private fun handleResponse(serie: Series) {
         this.serie=serie
         title_serie_detail.text= serie!!.titre
-        details_serie.text= serie!!.genres[0].name +" , "+serie!!.genres[1].name
-        directorName_serie.text= serie!!.date
-        nbeisodes.text=serie!!.nbEposides
-        nbsaisons.text=serie!!.nbSaisons
-        storyLine_serie.text= serie!!.info
+        if (serie.genres.size>0)details_serie.text= serie!!.genres[0].name +" , "+serie!!.genres[1].name
+        if (serie.date!=null)directorName_serie.text= serie!!.date
+        if (serie.nbEposides!=null)nbeisodes.text=serie!!.nbEposides
+        if (serie.nbSaisons!=null)nbsaisons.text=serie!!.nbSaisons
+        if (serie.info!=null)storyLine_serie.text= serie!!.info
         if(serie!!.fav) serieFavori.isFavorite = true
         if (serie.image!=null){
         Glide.with(this)
                 .load(serie!!.image)
                 .into(pictureSerie)}
-        rateSerie.text=serie.voteAverage.toString()
+        if (serie.voteAverage!=null)rateSerie.text=serie.voteAverage.toString()
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = serie.titre
-        println("saisons")
-        println("nb de saisons"+serie.saisons.size)
 
 
-        rating_serie.rating  = serie!!.voteAverage
+
+        if (serie.voteAverage!=null)rating_serie.rating  = serie!!.voteAverage
 
         setTitle(serie!!.titre)
         /****************************************** Add Video *************************************/

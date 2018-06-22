@@ -33,11 +33,11 @@ class EpisodeDetailActivity : AppCompatActivity() {
 
         setTitle(episode.nom)
         title_episode.text=episode.nom
-        storyLine_eposide.text=episode.storyline
-        numepisode.text=episode.nb_episode.toString()
-        datesortieEpisodedetail.text=episode.date
-        rateepisode.text=episode.eval.toString().substring(0,3)
-        rating_episode.rating=episode.eval
+        if (episode.storyline!=null)storyLine_eposide.text=episode.storyline
+        if (episode.nb_episode!=null)numepisode.text=episode.nb_episode.toString()
+        if (episode.date!=null) datesortieEpisodedetail.text=episode.date
+        if (episode.eval!=null)rateepisode.text=episode.eval.toString().substring(0,3)
+        if (episode.eval!=null)rating_episode.rating=episode.eval
         if (episode.image!=null){
             Glide.with(this)
                     .load(WebServiceFactory.IMAGE_BASE_URL+episode!!.image)

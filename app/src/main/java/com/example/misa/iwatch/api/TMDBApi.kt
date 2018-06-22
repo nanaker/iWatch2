@@ -38,7 +38,8 @@ interface TMDBApi {
     fun getPopularMovies(@Query("page") pageNumber: Int): Call<ListingData<Movie>>
 
 
-
+    @GET("movie/latest")
+    fun getLatestMovie(): Observable<Movie>
     /**
      * Get the primary information about a movie.
      */

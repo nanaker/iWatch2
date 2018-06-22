@@ -147,10 +147,10 @@ class MovieDetailActivity : AppCompatActivity() {
        this.film = movie
     println("film result title "+film.title)
         title_movie_detail.text= film!!.title
-        details_movie.text= film!!.genres[0].name +" , "+film!!.genres[1].name
-        directorName_detail.text= film!!.release_date
-       rating_movie.rating = film!!.voteAverage
-               storyLine.text= film!!.info
+        if (film.genres.size>0){ details_movie.text= film!!.genres[0].name +" , "+film!!.genres[1].name }
+        if (film.release_date!=null) directorName_detail.text= film!!.release_date
+        if (film.voteAverage!=null) rating_movie.rating = film!!.voteAverage
+        if (film.info!=null)storyLine.text= film!!.info
         if (film.image!=null){
        Glide.with(this)
                .load(film!!.image)

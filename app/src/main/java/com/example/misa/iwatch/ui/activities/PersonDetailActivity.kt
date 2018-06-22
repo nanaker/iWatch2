@@ -57,15 +57,15 @@ class PersonDetailActivity : AppCompatActivity() {
         this.personnes=personne
         setTitle(personnes!!.nom)
         Glide.with(this)
-                .load(WebServiceFactory.IMAGE_BASE_URL+personne!!.image)
+                .load(personne!!.image)
                 .into(picturePersonneDetail)
 
 
         actorNameDetail.text=personnes!!.nom
-        birthplace.text=personnes!!.LieuNiassance
-        birthdate.text=personnes!!.dateNaissance
-        bibliographie.text=personnes!!.bibliographie
-        poularity.text=personnes.eval.toString()
+        if (personnes.LieuNiassance!=null)   birthplace.text=personnes!!.LieuNiassance
+        if (personnes.dateNaissance!=null)  birthdate.text=personnes!!.dateNaissance
+        if (personnes.bibliographie!=null) bibliographie.text=personnes!!.bibliographie
+        if (personnes.eval!=null) poularity.text=personnes.eval.toString()
 
 
 
