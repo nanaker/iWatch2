@@ -75,9 +75,15 @@ class MovieDetailActivity : AppCompatActivity() {
           movieFavori.isFavorite = true
           film.fav = true
 
-          filmFav = film(film.id, film.title, film.info, film.release_date,null,
+
+
+          filmFav = film(film.id, film.title, film.info, film.release_date,film.genres,null,
                   null, null,"", film.voteAverage, film.image)
           InsertTask(context = this, film = filmFav).execute()
+
+          val j = film.genres!!.size
+          Log.e("ID ", "Siiiize Genres: $j")
+          setResult(filmFav,2)
 
           saveComment(film.id)
           saveAssociatefilm(film.id)

@@ -75,5 +75,23 @@ class DateRoomConverter {
     }
 
 
+    //convertir la liste des Genres en String
+    @TypeConverter
+    fun stringToAssociateGenres(data: String?): ArrayList<Genre>? {
+        if (data == null) {
+            return EMPTY_LIST as ArrayList<Genre>?
+        }
+
+        val listType = object : TypeToken<ArrayList<Genre>?>() {
+
+        }.type
+
+        return gson.fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun stringToAssociateGenres(someObjects: ArrayList<Genre>?): String {
+        return gson.toJson(someObjects)
+    }
 
 }

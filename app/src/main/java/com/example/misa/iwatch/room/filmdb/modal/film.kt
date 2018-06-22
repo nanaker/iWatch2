@@ -15,6 +15,7 @@ data class film(
                 @ColumnInfo(name = "title") var title: String,
                 @ColumnInfo(name = "info") var info: String,
                 @ColumnInfo(name = "release_date") var release_date: String,
+                @ColumnInfo(name = "genres") var genres: ArrayList<Genre>?,
                 @ColumnInfo(name = "associatefilm") var associatefilm: ArrayList<associate_Movie>?,
                 @ColumnInfo(name = "actors") var actors: ArrayList<associate_Actors>?,
                 //@ColumnInfo(name = "room") var room: ArrayList<Cinema>?,
@@ -25,7 +26,7 @@ data class film(
                 @ColumnInfo(name = "image") var image: String
             ){
 
-    constructor():this(0, "", "", "",null,null,
+    constructor():this(0, "", "", "",null,null,null,
             null,"", 0.0F, "")
 
     override fun equals(o: Any?): Boolean {
