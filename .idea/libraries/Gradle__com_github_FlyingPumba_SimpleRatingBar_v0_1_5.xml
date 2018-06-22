@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.FlyingPumba:SimpleRatingBar-v0.1.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SimpleRatingBar-v0.1.5.aar/ed64b13ee870464d6618fee0ee6a0f19/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SimpleRatingBar-v0.1.5.aar/ed64b13ee870464d6618fee0ee6a0f19/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.FlyingPumba/SimpleRatingBar/v0.1.5/781c942f6947429b82b3584b16417783ee2f71d5/SimpleRatingBar-v0.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
