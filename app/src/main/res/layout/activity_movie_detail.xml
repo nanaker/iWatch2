@@ -116,7 +116,7 @@
 
                             app:srb_drawBorderEnabled="false"
                             app:srb_fillColor="@color/bordo"
-                            app:srb_numberOfStars="10"
+                            app:srb_numberOfStars="5"
                             app:srb_rating="3"
                             app:srb_starBackgroundColor="@color/stars"
                             app:srb_starBorderWidth="1"

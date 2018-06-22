@@ -36,6 +36,9 @@ class MovieDetailRepository (val tmdbApi: TMDBApi): IRepository {
     fun getMovieDetail(id: Int): Observable<Movie> {
         println("calling movie detail repository ")
         return tmdbApi.getMovieDetailsById(id)}
+    fun getLatestMovie(): Observable<Movie> {
+        println("calling movie detail repository ")
+        return tmdbApi.getLatestMovie()}
     fun getMovieReview(id: Int): Observable<ReviewResponse> {
         println("calling movie detail repository review")
         return tmdbApi.getMovieUserReview(id)

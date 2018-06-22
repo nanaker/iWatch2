@@ -13,42 +13,19 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/tof"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="24dp">
+            android:orientation="vertical">
 
-            <Button
-                android:theme="@style/ButtonFun"
-                android:id="@+id/btnmovies_fun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/film"/>
-
-            <Button
-                android:theme="@style/ButtonFun"
-                android:id="@+id/btnseries_fun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/serie"
-                android:layout_marginLeft="24dp"/>
-
-            <Button
-                android:theme="@style/ButtonFun"
-                android:id="@+id/btnRooms_fun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rooms"
-                android:layout_marginLeft="24dp"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="24px"
             android:id="@+id/recycleViewFun"/>
 
     </LinearLayout>
-
 
 </RelativeLayout>

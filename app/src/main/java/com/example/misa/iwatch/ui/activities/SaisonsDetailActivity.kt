@@ -57,28 +57,23 @@ class SaisonsDetailActivity : AppCompatActivity() {
     }
 
     private fun handleResponse(saison: Saisons) {
-        println(" saison handle result ")
+
         this.saison=saison
-        println("saison name "+saison.titre)
-        println(" nb saison "+saison.nbsaison)
-        println(" image path "+saison!!.image)
         if (saison.image!=null){
         Glide.with(this)
                 .load(WebServiceFactory.IMAGE_BASE_URL +saison!!.image)
                 .into(picturesaison)}
-        println("pass image ")
 
         title_saison_detail.text= saison.titre
-        println("pass titre ")
-        dateOnAir.text= saison.date
-        println("pass date ")
+
+       if (saison.date!=null) dateOnAir.text= saison.date
+
         nbeisodessaisosn.text=saison.episode[saison.episode.size-1].nb_episode.toString()
-        println("pass nbepisodes")
-        storyLine_saison.text= saison.storyline
-        println("pass story "+saison.storyline)
-        println("pass nb saison  "+saison.nbsaison)
-        nbsaison.text= nb_saison.toString()
-        println("pass nb saison  "+saison.nbsaison)
+
+        if (saison.storyline!=null)storyLine_saison.text= saison.storyline
+
+        if (saison.nbsaison!=null)nbsaison.text= nb_saison.toString()
+
 
         /****************************************** Add Video *************************************/
 
