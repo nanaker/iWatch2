@@ -18,6 +18,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.example.misa.iwatch.api.WebServiceFactory
 
 
 class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,MoviesAdapter.ViewHolder>(Movie.DIFF_CALL) {
@@ -46,6 +47,7 @@ class MoviesAdapter(private val context: Context): PagedListAdapter<Movie,Movies
                     // bundle.putSerializable("film", getItem(position))
             println("movie_id"+ getItem(position)!!.id)
             bundle.putInt("id_movie", getItem(position)!!.id)
+            bundle.putString("tag", WebServiceFactory.TAG_API)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)

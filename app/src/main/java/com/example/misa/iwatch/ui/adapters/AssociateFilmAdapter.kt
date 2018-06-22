@@ -16,6 +16,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.misa.iwatch.R
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.api.WebServiceFactory.Companion.IMAGE_BASE_URL
 import com.example.misa.iwatch.ui.activities.MovieDetailActivity
 import com.example.misa.iwatch.entity.*
@@ -39,6 +40,7 @@ class AssociateFilmAdapter(val associateFilmList: ArrayList<associate_Movie>): R
             val bundle = Bundle()
 
             bundle.putInt("id_movie", associateFilmList[position].id)
+            bundle.putString("tag", WebServiceFactory.TAG_API)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)
