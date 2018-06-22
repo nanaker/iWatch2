@@ -1,7 +1,6 @@
 package com.example.misa.iwatch.ui.activities
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
@@ -76,12 +75,14 @@ class MovieDetailActivity : AppCompatActivity() {
           movieFavori.isFavorite = true
           film.fav = true
 
-          filmFav = film(film.id, film.title, film.info, film.release_date, "", film.voteAverage, film.image)
+          filmFav = film(film.id, film.title, film.info, film.release_date,null,
+                  null, null,"", film.voteAverage, film.image)
           InsertTask(context = this, film = filmFav).execute()
 
           saveComment(film.id)
           saveAssociatefilm(film.id)
           saveAssociateActeur(film.id)
+
       }
 
     }
@@ -99,10 +100,17 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     fun handleResponseCredits(credits:CreditsResponse){
-        val associate_Actors=credits.associate_Actors
-        val id_movie=film.id
+        val associate_Actors = credits.associate_Actors
+        val id_movie = film.id
 
         // save associate actors in the database
+        // save associate film in the database
+        filmFav.actors = credits.associate_Actors
+        filmDbInstance!!.getFilmDao().updateFilm(filmFav)
+        val  j = filmDbInstance!!.getFilmDao().getFilmFav()[0].actors!!.size
+        Log.e("ID ", "Siiiize Actors: $j")
+        setResult(filmFav,2)
+
 
 
     }
@@ -119,10 +127,15 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     fun handleResponseSimilar(similar:SimilarMovieResponse){
-        val associate_film=similar.associate_Movie
-        val id_movie=film.id
+        val associate_film = similar.associate_Movie
+        val id_movie = film.id
 
         // save associate film in the database
+        filmFav.associatefilm = similar.associate_Movie
+        filmDbInstance!!.getFilmDao().updateFilm(filmFav)
+        val  j = filmDbInstance!!.getFilmDao().getFilmFav()[0].associatefilm!!.size
+        Log.e("ID ", "Siiiize Mooovie: $j")
+        setResult(filmFav,2)
 
 
     }
@@ -140,10 +153,17 @@ class MovieDetailActivity : AppCompatActivity() {
 
     }
     fun handleResponseComment(reviews:ReviewResponse){
-        val comments=reviews.comments
-        val id_movie=film.id
+        //val comments = reviews.comments
+        val id_movie = film.id
 
         // save reviews in the database
+
+        filmFav.comments = reviews.comments
+        filmDbInstance!!.getFilmDao().updateFilm(filmFav)
+        val  j = filmDbInstance!!.getFilmDao().getFilmFav()[0].comments!!.size
+        Log.e("ID ", "Siiiize Comments: $j")
+        setResult(filmFav,2)
+
 
 
     }
@@ -151,7 +171,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun setResult(film: film, flag: Int) {
         setResult(flag, Intent().putExtra("filmfav", film.id))
-        finish()
+        //finish()
     }
 
     private class InsertTask// only retain a weak reference to the activity

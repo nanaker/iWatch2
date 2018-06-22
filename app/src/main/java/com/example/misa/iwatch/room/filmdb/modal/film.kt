@@ -15,17 +15,18 @@ data class film(
                 @ColumnInfo(name = "title") var title: String,
                 @ColumnInfo(name = "info") var info: String,
                 @ColumnInfo(name = "release_date") var release_date: String,
-                //@ColumnInfo(name = "associatefilm") var associatefilm: ArrayList<associate_Movie>?,
-                //@ColumnInfo(name = "actors") var actors: ArrayList<associate_Actors>?,
+                @ColumnInfo(name = "associatefilm") var associatefilm: ArrayList<associate_Movie>?,
+                @ColumnInfo(name = "actors") var actors: ArrayList<associate_Actors>?,
                 //@ColumnInfo(name = "room") var room: ArrayList<Cinema>?,
-                //@ColumnInfo(name = "comments") var comments: ArrayList<Comments>?,
+                @ColumnInfo(name = "comments") var comments: ArrayList<Comments>?,
                 //@ColumnInfo(name = "realisateur") var realisateur: Personnes?,
                 @ColumnInfo(name = "video") var video: String,
                 @ColumnInfo(name = "voteAverage") var voteAverage: Float,
                 @ColumnInfo(name = "image") var image: String
             ){
 
-    constructor():this(0, "", "", "", "", 0.0F, "")
+    constructor():this(0, "", "", "",null,null,
+            null,"", 0.0F, "")
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
