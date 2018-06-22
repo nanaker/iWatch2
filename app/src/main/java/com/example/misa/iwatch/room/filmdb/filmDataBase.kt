@@ -14,7 +14,7 @@ import com.example.misa.iwatch.room.filmdb.modal.film
  */
 
 @Database(entities = arrayOf(film::class), version = 2)
-//@TypeConverters(DateRoomConverter::class)
+@TypeConverters(DateRoomConverter::class)
 abstract class filmDataBase : RoomDatabase() {
 
     abstract fun getFilmDao(): filmDao

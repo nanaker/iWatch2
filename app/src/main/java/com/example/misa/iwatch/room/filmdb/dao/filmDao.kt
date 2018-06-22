@@ -16,6 +16,9 @@ interface filmDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     fun addFilmFav(film: film): Long
 
+    @Update
+    fun updateFilm(film: film)
+
     @Delete
     fun deleteFilmFav(film: film)
 }
