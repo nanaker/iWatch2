@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.example.misa.iwatch.entity.*
+import java.io.Serializable
 
 /**
  * Created by misa on 6/19/18.
@@ -24,7 +25,7 @@ data class film(
                 @ColumnInfo(name = "video") var video: String,
                 @ColumnInfo(name = "voteAverage") var voteAverage: Float,
                 @ColumnInfo(name = "image") var image: String
-            ){
+            ): Serializable{
 
     constructor():this(0, "", "", "",null,null,null,
             null,"", 0.0F, "")

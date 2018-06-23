@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
@@ -21,6 +22,7 @@ import android.widget.MediaController
 import com.bumptech.glide.Glide
 import com.example.misa.iwatch.Repository.IRepository
 import com.example.misa.iwatch.Repository.Movies.MovieDetailRepository
+import com.example.misa.iwatch.api.WebServiceFactory
 import com.example.misa.iwatch.entity.*
 import com.example.misa.iwatch.room.filmdb.filmDataBase
 import com.example.misa.iwatch.room.filmdb.modal.film
@@ -42,7 +44,9 @@ import java.net.URL
 class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var film: Movie
+    lateinit var film_db:film
     var id: Int = 0
+    var tag:String=""
 
     lateinit var fragmentDetail:DetailsFragment
     lateinit var fragmentRoom:RoomsFragment
@@ -63,16 +67,62 @@ class MovieDetailActivity : AppCompatActivity() {
 
         id = bundle!!.getInt("id_movie")
         println("movie id activity "+id)
+        tag =bundle!!.getString("tag")
+        when(tag) {
+            WebServiceFactory.TAG_BDD -> {
+                film_db =bundle!!.getSerializable("film") as film
 
-        val repo = ServiceLocator.instance()
-                .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
 
-        val DetailFilmModel =  MoviesDetailViewModel(repo)
+                title_movie_detail.text= film_db!!.title
+                if (film_db.genres!!.size>1){ details_movie.text= film_db!!.genres!![0].name +" , "+ film_db!!.genres!![1].name }
+                else if (film_db.genres!!.size>0 ) details_movie.text= film_db!!.genres!![0].name
+                if (film_db.release_date!=null) directorName_detail.text= film_db!!.release_date
+                if (film_db.voteAverage!=null) rating_movie.rating = film_db!!.voteAverage
+                if (film_db.info!=null)storyLine.text= film_db!!.info
+                //Charger l'image
+                val photoPath = Environment.getExternalStorageDirectory().toString() + "/"+film_db.id.toString()+".jpg"
+                val bitmap = BitmapFactory.decodeFile(photoPath)
+                pictureMovieDetail.setImageBitmap(bitmap)
+                rate.text= film_db.voteAverage.toString()
+                movieFavori.isFavorite = true
 
-        DetailFilmModel.getmovie(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError)
+               
+
+                setSupportActionBar(findViewById(R.id.my_toolbar))
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                supportActionBar?.title = film_db.title
+
+                setTitle("Details")
+
+                val pageAdapter = MovieSectionsPageAdapter(supportFragmentManager)
+                fragmentDetail=DetailsFragment.newInstance(film_db!!.id)
+                fragmentRoom=RoomsFragment.newInstance();
+                fragmentComments=CommentsFragment.newInstance(film_db!!.id,1)
+                pageAdapter.addFragment(fragmentDetail, "DETAILS")
+                pageAdapter.addFragment(fragmentRoom, "ROOMS")
+                pageAdapter.addFragment(fragmentComments!!, "COMMENTS")
+
+                movieContainer.adapter = pageAdapter
+                Movietabs.setupWithViewPager(movieContainer)
+
+
+            }
+                WebServiceFactory.TAG_API  ->{
+                    val repo = ServiceLocator.instance()
+                            .getRepository(IRepository.Type.DETAILMOVIE) as MovieDetailRepository
+
+                    val DetailFilmModel =  MoviesDetailViewModel(repo)
+
+                    DetailFilmModel.getmovie(id)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
+                            .subscribe(this::handleResponse, this::handleError)
+
+                }
+        }
+
+
+
 
         filmDbInstance = filmDataBase.getInstance(this)
 
@@ -282,8 +332,16 @@ class MovieDetailActivity : AppCompatActivity() {
         rate.text= film.voteAverage.toString()
         rating_movie.rating=film.voteAverage
 
-        film.fav=false
-        if(film!!.fav) movieFavori.isFavorite = true
+
+       film.fav=false
+        val filmsfav=filmDbInstance!!.getFilmDao().getFilmFav()
+        for (item in filmsfav){
+            if (item.id==film.id){
+                film.fav=true
+                movieFavori.isFavorite = true
+                break;
+            }
+        }
 
        /****************************************** Add Video *************************************/
            val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)

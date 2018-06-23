@@ -36,6 +36,7 @@ class FilmographieAdapter(val associateFilmList: ArrayList<associate_Movie>): Re
             val intent = Intent(context, MovieDetailActivity::class.java)
             val bundle = Bundle()
             bundle.putInt("id_movie", associateFilmList[position].id)
+            bundle.putString("tag", WebServiceFactory.TAG_API)
             intent.putExtras(bundle)
 
             context!!.startActivity(intent)
